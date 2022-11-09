@@ -4,7 +4,7 @@
 using namespace std; 
 
 class Aiport {
-    private
+    private:
 
     string name;
     string city;
