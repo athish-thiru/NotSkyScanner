@@ -5,7 +5,7 @@
 //vector: source. openflights identifier
 //vector: destination, open flights idenitifer
 //indexed by line they are on
-//distances
+//will create distances vector
 
 using namespace std; 
 class Routes {
