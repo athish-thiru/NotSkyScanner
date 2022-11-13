@@ -1,4 +1,4 @@
-/Graphs Class
+//Graphs Class
 
 #include "airport_graph.h"
 #include <math.h> 
@@ -35,6 +35,9 @@ void addAllEdges(){
     }
 }
 
+/* /THIS FUNCTION IS RELOCATED TO ROUTES. CPP/
+
+
 double distance(int source_number, int dest_number){
     source_lat = airport[source_number].getlat();
     source_long = airport[source_number].getlon();
@@ -63,3 +66,5 @@ double distance(int source_number, int dest_number){
  
     return distance;
 }
+
+*?
