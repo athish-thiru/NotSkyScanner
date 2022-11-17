@@ -1,15 +1,16 @@
-#include <airport.h>
-#include "vector"
+#include "airport.h"
+#include <vector>
 
 using namespace std;
 
 Airport::Airport() {
+    /*
     name = "UNKNOWN";
     city = "UNKNOWN";
     IATA = "UNKNOWN";
     lon = 0;
     lat = 0;
-
+    */
 }
 
 string Airport:: getName() {
@@ -60,6 +61,7 @@ void Airport::setLat(double input) {
         
 //     }
 // }  
+/*
 
 vector<Airport> setVector(string input) {
     std::ifstream aiportdata(filename);
@@ -108,3 +110,4 @@ Airport setVectorHelper(string line) {
         }
     }
 }
+*/

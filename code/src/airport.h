@@ -3,8 +3,8 @@
 
 using namespace std; 
 
-class Aiport {
-    private
+class Airport {
+    private:
 
     string name;
     string city;

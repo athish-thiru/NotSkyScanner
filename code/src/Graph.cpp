@@ -1,6 +1,6 @@
 //Graphs Class
 
-#include "airport_graph.h"
+//#include "airport_graph.h"
 #include <math.h> 
 #include <vector>
 #include <string>
@@ -12,7 +12,7 @@
 
 using namespace std;
 
-
+/*
 //default constructor
 Graph::Graph(){
 }
@@ -67,4 +67,4 @@ double distance(int source_number, int dest_number){
     return distance;
 }
 
-*?
+*/
