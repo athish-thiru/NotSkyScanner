@@ -19,6 +19,7 @@ class Routes {
     std::vector<int>src_id;
     std::vector<int>dest_id;
     std::vector<int>dist_vect;
+    std::string line; 
    
 
 
