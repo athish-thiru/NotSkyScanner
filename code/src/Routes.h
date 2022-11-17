@@ -16,8 +16,8 @@ class Routes {
 
     public:
     double distance(int source_number, int dest_number);
-    std::vector<int>src_vect;
-    std::vector<int>dest_vect;
+    std::vector<int>src_id;
+    std::vector<int>dest_id;
     std::vector<int>dist_vect;
    
 
