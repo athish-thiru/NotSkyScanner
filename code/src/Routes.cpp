@@ -15,64 +15,28 @@ using namespace std;
 //parsing into src_vect here
 
 //parsing into dest_vect here
-
-
     std::ifstream routesdata("routes.dat");
-  //  std::vector<string>src_id;
- //   std::vector<string>dest_id;
-    std::string line;
-    int counter = 0;
- while (std::getline(routesdata, line)) {   
-//parse through line
- for (int i=0;i<line.size();i++){
-     
-      if(line[i]=',')
-      {
-          if (counter==3)
-{//push string into source substr and substr into src ID
-
-string substr;
-substr[0]=line[i+1];
-substr[1]=line[i+2];
-substr[3]=line[i+3];
-substr[4]=line[i+4];
-
-//test why substr doesnt have line
-for(size_t i=0;i<substr.size();i++){
-cout<<substr[i]<<endl;
-    
+    std::vector<string>src_id;
+    std::vector<string>dest_id;
+    std::string line; 
+while (std::getline(routesdata, line))
+{
+    // Line contains string of length > 0 then save it in vector
+    if(line.size() > 0){
+        stringstream ss(line);
+        vector<string> v;
+        while(ss.good()) {
+        string substr;
+        getline(ss, substr, ',');
+        v.push_back(substr);
+    }
+    src_id.push_back(v[3]);
+    dest_id.push_back(v[5]);
+    }
 }
-src_id.push_back(substr);
-//cout<<"test"<<endl;
-//once substr successfully gets line, test if vector has it              
-// for (size_t i = 0; i < src_id.size(); i++)
-//         cout << src_id[i] << endl;
-}
-if (counter==5)
-{//push string into dest substr and substr into dest ID
-string substr;
-substr[0]=line[i+1];
-substr[1]=line[i+2];
-substr[3]=line[i+3];
-substr[4]=line[i+4];
-dest_id.push_back(substr);
-//cout<<"test_5"<<endl;
-}
-      counter++;
-      //cout<<"test"<<endl;
-     // cout<<line[i]<<endl;
-          
-      }
-
-
-}
-}
-
-
-
-
-
-
+for (size_t i = 0; i < dest_id.size(); i++)
+        cout << dest_id[i] << endl;
+        
 
 
 
