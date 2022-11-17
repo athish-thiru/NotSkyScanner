@@ -11,7 +11,7 @@
 
 
 using namespace std;
-/*
+
 
 //parsing into src_vect here
 
@@ -19,6 +19,7 @@ using namespace std;
     std::ifstream routesdata("routes.dat");
     std::vector<string>src_id;
     std::vector<string>dest_id;
+    std::distance<long double>distance;
     std::string line; 
 while (std::getline(routesdata, line))
 {
@@ -71,4 +72,8 @@ double distance(int source_number, int dest_number){
 }
 
 //parsing into dist vect here
-*/
+void make_distance(){
+    if(i = 0;i < dest_id.size(); i++){ //loop through src and destination for the id numbers, 
+        distance[i] = distance(stoi(src_id[i]), stoi(dest_id[i]));
+    }
+}
