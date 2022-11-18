@@ -1,6 +1,6 @@
 //#include "airport_graph.h"
 #include "Routes.h"
-#include <math.h> 
+#include <cmath> 
 #include <vector>
 #include <string>
 #include <unordered_map>
@@ -36,32 +36,27 @@ while (std::getline(routesdata, line))
     dest_id.push_back(v[5]);
     }
 }
-//to test dest_id has corect values, uncomment following lines
-/*for (size_t i = 0; i < dest_id.size(); i++)
+for (size_t i = 0; i < dest_id.size(); i++)
         cout << dest_id[i] << endl;
-        */
-//to test src_id has correct values, uncomment following lines
-/*for (size_t i = 0; i < src_id.size(); i++)
-        cout << src_id[i] << endl;
-        */
+        
 
 
 
 double distance(int source_number, int dest_number){
-    source_lat = airport[source_number].getlat();
-    source_long = airport[source_number].getlon();
-    dest_lat = airport[dest_number].getlat();
-    dest_long = airport[dest_number].getlon();
+    long double source_lat = airport[source_number].getlat();
+    long double source_long = airport[source_number].getlon();
+    long double dest_lat = airport[dest_number].getlat();
+    long double dest_long = airport[dest_number].getlon();
     
     source_lat = toRadians(source_lat);
     source_long = toRadians(source_long);
     dest_lat = toRadians(dest_lat);
     dest_long = toRadians(dest_long);
 
-    long double d_long = long2 - long1;
-    long double d_lat = lat2 - lat1;
+    long double d_long = dest_long - source_long;
+    long double d_lat = dest_lat - source_lat;
  
-    long double ans = pow(sin(dlat / 2), 2) + cos(lat1) * cos(lat2) * pow(sin(d_long / 2), 2);
+    long double ans = pow(sin(dlat / 2), 2) + cos(source_lat) * cos(dest_lat) * pow(sin(d_long / 2), 2);
  
     ans = 2 * asin(sqrt(ans));
  
