@@ -1,14 +1,16 @@
 #pragma once
 #include <string>
-#include "routes.h"
-#include "airport.h"
+#include <vector>
+#include "/workspaces/CS225/NotSkyScanner-main/code/src/Routes.h"
+#include "/workspaces/CS225/NotSkyScanner-main/code/src/airport.h"
+
 using namespace std; 
 
 class Graph {
     public:
-    void addEdge(vector <pair<srting, int> > adj[], int source_number, string destination_number, int distance);
+    void addEdge(vector <pair<int, long double> > adj, int source_number, int destination_number, long double distance);
     void addAllEdges();
-    vector <pair<srting, long double> > adj;
-    void printGraph(vector<pair<int,long double> > adj[], int V)
-    void listAdjacentNodes(vector<pair<int,long double> > adj[], int m)
+    vector <pair<int, long double> > adj;
+    void printGraph(vector<pair<int,long double> > adj[], int V);
+    // void listAdjacentNodes(vector<pair<int,long double> > adj[], int m);
 };
