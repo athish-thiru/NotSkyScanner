@@ -36,9 +36,14 @@ while (std::getline(routesdata, line))
     dest_id.push_back(v[5]);
     }
 }
-for (size_t i = 0; i < dest_id.size(); i++)
+//to test dest_id has corect values, uncomment following lines
+/*for (size_t i = 0; i < dest_id.size(); i++)
         cout << dest_id[i] << endl;
-        
+        */
+//to test src_id has correct values, uncomment following lines
+/*for (size_t i = 0; i < src_id.size(); i++)
+        cout << src_id[i] << endl;
+        */
 
 
 
