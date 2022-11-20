@@ -8,11 +8,8 @@ using namespace std;
 
 class Graph {
     public:
-<<<<<<< HEAD
     Graph();
-=======
     vector<Airport> setVector();
->>>>>>> a8fcfea345c6e529ec49b1041e5ea3e7ac16a36f
     void addEdge(vector <pair<int, long double> > adj, int source_number, int destination_number, long double distance);
     void addAllEdges();
     vector <pair<int, long double> > adj;

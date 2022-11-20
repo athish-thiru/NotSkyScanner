@@ -1,5 +1,6 @@
 #include <iostream>
 #include "/workspaces/cs225/FinalProject/NotSkyScanner/code/src/airport.h"
+#include "/workspaces/cs225/FinalProject/NotSkyScanner/code/src/graph.h"
 #include <sstream>
 #include <fstream>
 #include <string>
@@ -12,7 +13,8 @@ vector<Airport> setVector();
 int main() {
     
     std::cout << "Main is working" << std::endl;
-    vector<Airport> test = setVector();
+    Graph test_graph;
+    vector<Airport> test = test_graph.setVector();
 
     return 0;
 } 
