@@ -9,6 +9,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <bits/stdc++.h>
 
 
 using namespace std;
@@ -61,6 +62,85 @@ void Graph::printGraph(vector<pair<int,long double> > adj[], int V)
 //     }
 
 // }
+
+vector<Airport> Graph::setVector() {
+    std::ifstream airportdata("/workspaces/CS225/NotSkyScanner-main/NotSkyScanner/data/airports.dat");
+    string line;
+    
+    vector<Airport> ans;
+    for (int i = 0; i < 14101; i++) {
+        ans.push_back(Airport());
+    }
+    while (std::getline(airportdata, line)) {
+        stringstream ss(line);
+        stringstream ss2(line);
+        vector<string> v;
+        vector<string> v2;
+          
+        string substr; 
+        getline(ss, substr, ',');
+        v.push_back(substr);
+        getline(ss, substr, '\"');
+        getline(ss, substr, '\"');
+        v.push_back(substr);
+        getline(ss, substr, '\"');
+        getline(ss, substr, '\"');
+        v.push_back(substr);
+         while (ss.good()) {
+            string substr;
+            getline(ss, substr, ',');
+            v.push_back(substr);
+        } 
+   
+
+        // for (int i = 0; i < v.size(); i++) {
+        //     cout << v[i] << "  ";
+        // }
+   //     cout << "done" << endl;
+        Airport temp;
+   //     cout << v[1] << " " << v[2] << " " << v[4] << " " << v[7] << " " << v[8] << endl;
+
+        if (isdigit(atoi(v[8].c_str())) && isdigit(atoi(v[7].c_str())) ) {  
+          //  cout << "done1" << endl;
+                temp.setLon(stod(v[7]));
+                temp.setLat(stod(v[8]));
+                string str = v[4];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setIATA(str);
+                str = v[2];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setCity(str);
+                str = v[1];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setName(str); 
+                ans[stoi(v[0])] = temp;  
+        } else {
+          //  cout << "done2" << endl;
+            while (ss2.good()) {
+            string substr;
+            getline(ss2, substr, ',');
+            v2.push_back(substr);
+            }
+
+                temp.setLon(stod(v2[7]));
+                temp.setLat(stod(v2[8]));
+                string str = v2[4];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setIATA(str);
+                str = v2[2];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setCity(str);
+                str = v2[1];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setName(str);   
+                ans[stoi(v2[0])] = temp;        
+            
+        }
+        //ans.push_back(temp); 
+    }
+    cout << ans.size() << endl;
+    return ans;
+}
 
 
 
