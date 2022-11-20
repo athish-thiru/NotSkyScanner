@@ -60,7 +60,7 @@ void printGraph(vector<pair<int,long double> > adj[], int V)
 
 // }
 
-vector<Airport> Parser::setVector() {
+vector<Airport> Graph::setVector() {
     std::ifstream airportdata("/workspaces/CS225/NotSkyScanner-main/NotSkyScanner/data/airports.dat");
     string line;
     
