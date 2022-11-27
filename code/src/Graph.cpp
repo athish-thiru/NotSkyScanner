@@ -68,7 +68,7 @@ vector<Airport> Graph::setVector() {
     string line;
     
     vector<Airport> ans;
-    for (int i = 0; i < 14101; i++) {
+    for (int i = 0; i < 14111; i++) {
         ans.push_back(Airport());
     }
     while (std::getline(airportdata, line)) {
