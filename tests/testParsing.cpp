@@ -92,7 +92,7 @@ TEST_CASE("Skips /N values", "[Routes = 1]") {
 TEST_CASE("No extra values in any vector/ all the data has been parsed", "[Routes = 2]") {
 
     Routes routes;
-    std::cout << routes.GetSourceNumbers().size() <<endl;
+    //std::cout << routes.GetSourceNumbers().size() <<endl;
 
     REQUIRE(routes.GetSourceNumbers().size() == routes.GetDestinationNumbers().size());
     REQUIRE(routes.GetDestinationNumbers().size() == routes.GetDistances().size());
