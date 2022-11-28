@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "/workspaces/cs225/FinalProject/NotSkyScanner/code/src/Routes.h"
-#include "/workspaces/cs225/FinalProject/NotSkyScanner/code/src/airport.h"
+#include "Routes.h"
+#include "airport.h"
 
 using namespace std; 
 

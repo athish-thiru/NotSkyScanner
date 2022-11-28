@@ -2,7 +2,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "/workspaces/cs225/FinalProject/NotSkyScanner/code/src/airport.h"
+#include "airport.h"
 //vector: source. openflights identifier
 //vector: destination, open flights idenitifer
 //indexed by line they are on

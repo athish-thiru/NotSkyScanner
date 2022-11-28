@@ -1,6 +1,6 @@
 #include <iostream>
-#include "/workspaces/cs225/FinalProject/NotSkyScanner/code/src/airport.h"
-#include "/workspaces/cs225/FinalProject/NotSkyScanner/code/src/graph.h"
+#include "../src/airport.h"
+#include "../src/graph.h"
 #include <sstream>
 #include <fstream>
 #include <string>
@@ -15,6 +15,16 @@ int main() {
     std::cout << "Main is working" << std::endl;
     Graph test_graph;
     vector<Airport> test = test_graph.setVector();
+
+    size_t count = 0;
+    for (size_t i = 0; i < test.size(); i++) {
+        std::cout << test[i].getCity() << std::endl;
+        if (test[i].getCity() != "UNKNOWN") {
+            count++;
+        }
+    }
+    std::cout << "COUNT: " << count << std::endl;
+    std::cout << "SIZE: " << test.size() << std::endl;
 
     return 0;
 } 

@@ -1,7 +1,7 @@
 //Graphs Class
 
-#include "/workspaces/cs225/FinalProject/NotSkyScanner/code/src/Routes.h"
-#include "/workspaces/cs225/FinalProject/NotSkyScanner/code/src/Graph.h"
+#include "Routes.h"
+#include "Graph.h"
 #include <math.h> 
 #include <vector>
 #include <string>
@@ -64,7 +64,7 @@ void Graph::printGraph(vector<pair<int,long double> > adj[], int V)
 // }
 
 vector<Airport> Graph::setVector() {
-    std::ifstream airportdata("/workspaces/CS225/NotSkyScanner-main/NotSkyScanner/data/airports.dat");
+    std::ifstream airportdata("../data/airports.dat");
     string line;
     
     vector<Airport> ans;
