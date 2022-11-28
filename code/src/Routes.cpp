@@ -74,7 +74,7 @@ double Routes::distance(int source_number, int dest_number){
     return distance;
 }
 
-vector<Airport> Graph::setVector() {
+vector<Airport> Routes::setVector() {
     std::ifstream airportdata("../data/airports.dat");
     string line;
     
