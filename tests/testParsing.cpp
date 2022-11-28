@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../code/src/airport.h"
 #include "../code/src/graph.h"
+#include "../code/src/routes.h"
 #include <sstream>
 #include <fstream>
 #include <string>
@@ -11,8 +12,8 @@ using namespace std;
 
 
 TEST_CASE("Parsing First Element", "[Edge Case 1]") {
-    Graph test_graph;
-    vector<Airport> test = test_graph.setVector();
+    Routes test_routes;
+    vector<Airport> test = test_routes.GetAirports();
 
     REQUIRE(test[1].getName() == "Goroka Airport");
     REQUIRE(test[1].getCity() == "Goroka");
@@ -22,8 +23,8 @@ TEST_CASE("Parsing First Element", "[Edge Case 1]") {
 }
 
 TEST_CASE("Parsing Last Element", "[Edge Case 2]") {
-    Graph test_graph;
-    vector<Airport> test = test_graph.setVector();
+    Routes test_routes;
+    vector<Airport> test = test_routes.GetAirports();
 
     REQUIRE(test[14110].getName() == "Melitopol Air Base");
     REQUIRE(test[14110].getCity() == "Melitopol");
@@ -34,8 +35,8 @@ TEST_CASE("Parsing Last Element", "[Edge Case 2]") {
 }
 
 TEST_CASE("Parsing Random", "[Middle Case 1]") {
-    Graph test_graph;
-    vector<Airport> test = test_graph.setVector();
+    Routes test_routes;
+    vector<Airport> test = test_routes.GetAirports();
 
     REQUIRE(test[641].getName() == "Harstad/Narvik Airport, Evenes");
     REQUIRE(test[641].getCity() == "Harstad/Narvik");
@@ -46,8 +47,10 @@ TEST_CASE("Parsing Random", "[Middle Case 1]") {
 }
 
 TEST_CASE("Parsing Random", "[Middle Case 2]") {
-    Graph test_graph;
-    vector<Airport> test = test_graph.setVector();
+    // Graph test_graph;
+    // vector<Airport> test = test_graph.setVector();
+    Routes test_routes;
+    vector<Airport> test = test_routes.GetAirports();
 
     REQUIRE(test[2997].getName() == "Chhatrapati Shivaji International Airport");
     REQUIRE(test[2997].getCity() == "Mumbai");
