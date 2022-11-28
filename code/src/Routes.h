@@ -13,7 +13,7 @@ class Routes {
     private:
     std::vector<int> src_id_vect_;
     std::vector<int> dest_id_vect_;
-    std::vector<double> dist_vect_;
+    std::vector<long double> dist_vect_;
     std::vector<Airport> airports_;
 
     
@@ -22,10 +22,10 @@ class Routes {
     Routes();
     vector<Airport> setVector();
     double distance(int source_number, int dest_number);
-    const std::vector<int> GetSourceNumbers();
-    const std::vector<int> GetDestinationNumbers();
-    const std::vector<double> GetDistances();
-    const std::vector<Airport> GetAirports();
+    std::vector<int> GetSourceNumbers();
+    std::vector<int> GetDestinationNumbers();
+    std::vector<long double> GetDistances();
+    std::vector<Airport> GetAirports();
     
     void make_distance();
 };

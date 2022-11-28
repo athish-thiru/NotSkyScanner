@@ -16,7 +16,7 @@ Routes::Routes() {
     std::ifstream routesdata("../data/routes.dat");
     std::vector<int> src_id;
     std::vector<int> dest_id;
-    std::vector<double> dist_vect;
+    std::vector<long double> dist_vect;
     std::string line; 
     while (std::getline(routesdata, line))
     {
@@ -143,10 +143,10 @@ vector<Airport> Routes::setVector() {
     return ans;
 }
 
-const std::vector<int> Routes::GetSourceNumbers() {return src_id_vect_;}
+std::vector<int> Routes::GetSourceNumbers() {return src_id_vect_;}
 
-const std::vector<int> Routes::GetDestinationNumbers() {return dest_id_vect_;}
+std::vector<int> Routes::GetDestinationNumbers() {return dest_id_vect_;}
 
-const std::vector<double> Routes::GetDistances() {return dist_vect_;}
+std::vector<long double> Routes::GetDistances() {return dist_vect_;}
 
-const std::vector<Airport> Routes::GetAirports() {return airports_;}
+std::vector<Airport> Routes::GetAirports() {return airports_;}

@@ -16,5 +16,5 @@ class Graph {
 
     private:
     Routes routes_;
-    std::vector<std::pair<int, long double>> adj_;
+    std::vector<std::vector<std::pair<int, long double>>> adjList_;
 };
