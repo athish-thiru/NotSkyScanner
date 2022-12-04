@@ -20,7 +20,9 @@ class Routes {
 
     public:
     Routes();
+    Routes(string routesFile, string aiportsFile);
     vector<Airport> setVector();
+    vector<Airport> setVector(string input);
     double distance(int source_number, int dest_number);
     std::vector<int> GetSourceNumbers();
     std::vector<int> GetDestinationNumbers();
