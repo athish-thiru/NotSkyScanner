@@ -18,7 +18,15 @@ using namespace std;
 //construct the vertices 
 //such that each airport object is connected with its ID
 Graph::Graph() {
-    Routes routes;
+    Routes routes = Routes();
+    routes_ = routes;
+    std::vector<std::pair<int, long double>> row = {};
+    std::vector<std::vector<std::pair<int, long double>>> adjList(routes.GetAirports().size(), row);
+    adjList_ = adjList;
+}
+
+Graph::Graph(string routesFile, string airportsFile) {
+    Routes routes = Routes(routesFile, airportsFile);
     routes_ = routes;
     std::vector<std::pair<int, long double>> row = {};
     std::vector<std::vector<std::pair<int, long double>>> adjList(routes.GetAirports().size(), row);
