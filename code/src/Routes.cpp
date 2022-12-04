@@ -45,6 +45,42 @@ Routes::Routes() {
     dist_vect_ = dist_vect;
 }
 
+Routes::Routes(string airportsFile,string routesFile) {
+    cout<< "Hi from Routes Constructor before Setvector" << endl;
+    airports_ = setVector(airportsFile);
+    cout<< "Hi from Routes Constructor after Setvector" << endl;
+    std::ifstream routesdata(routesFile);
+    std::vector<int> src_id;
+    std::vector<int> dest_id;
+    std::vector<long double> dist_vect;
+    std::string line; 
+    while (std::getline(routesdata, line))
+    {
+        // Line contains string of length > 0 then save it in vector
+        if(line.size() > 0){
+            stringstream ss(line);
+            vector<string> v;
+            while(ss.good()) {
+            string substr;
+            getline(ss, substr, ',');
+            v.push_back(substr);
+        }
+        //if \N exists instead of source number or destination number skip that line
+        if ((v[3] == "\\N") || (v[5] == "\\N")) continue;
+        int source_number = std::stoi(v[3]);
+        int dest_number = std::stoi(v[5]);
+        src_id.push_back(source_number);
+        dest_id.push_back(dest_number);
+        double dist = distance(source_number, dest_number);
+        //std::cout << source_number << " " << dest_number << " " << dist << std::endl;
+        dist_vect.push_back(dist);
+        }
+    }
+    src_id_vect_ = src_id;
+    dest_id_vect_ = dest_id;
+    dist_vect_ = dist_vect;
+}
+
 double Routes::distance(int source_number, int dest_number){
     long double source_lat = airports_[source_number].getLat();
     long double source_long = airports_[source_number].getLon();
@@ -92,21 +128,14 @@ vector<Airport> Routes::setVector() {
         string substr;
         getline(ss2, substr, ',');
         v2.push_back(substr);
-        }
-   
-
-        // for (int i = 0; i < v2.size(); i++) {
-        //     cout << v2[i] << "  ";
-        // }
-    //    cout << "done" << endl;
-;
+        };
+        
         Airport temp;
 
         try
 {
                     temp.setLon(stod(v2[6]));
                 temp.setLat(stod(v2[7]));
-                // cout << "success1?" << endl;
                 string str = v2[4];
                 str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
                 temp.setIATA(str);
@@ -117,12 +146,85 @@ vector<Airport> Routes::setVector() {
                 str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
                 temp.setName(str);   
                 ans[stoi(v2[0])] = temp;
-            //    / cout << v2[0] << endl;
-    // std::cout << "Converted string to a value of " << value << std::endl;
 }
 catch (const std::invalid_argument&)
 {
-    // std::cerr << "No conversion could be performed" << std::endl;
+     string substr; 
+        getline(ss, substr, ',');
+        v.push_back(substr);
+        getline(ss, substr, '\"');
+        getline(ss, substr, '\"');
+        v.push_back(substr);
+        getline(ss, substr, '\"');
+        getline(ss, substr, '\"');
+        v.push_back(substr);
+         while (ss.good()) {
+            string substr;
+            getline(ss, substr, ',');
+            v.push_back(substr);
+        }     
+
+                temp.setLon(stod(v[7]));
+                temp.setLat(stod(v[8]));
+                string str = v[5];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setIATA(str);
+                str = v[2];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setCity(str);
+                str = v[1];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setName(str); 
+                ans[stoi(v[0])] = temp;         
+            
+}
+catch (const std::out_of_range&)
+{
+    std::cerr << "Could not convert string to double, value falls out of range" << std::endl;
+}
+
+    }
+    return ans;
+}
+
+vector<Airport> Routes::setVector(string input) {
+    std::ifstream airportdata(input);
+    string line;
+    
+    vector<Airport> ans;
+    for (int i = 0; i < 14111; i++) {
+        ans.push_back(Airport());
+    }
+    while (std::getline(airportdata, line)) {
+        stringstream ss(line);
+        stringstream ss2(line);
+        vector<string> v;
+        vector<string> v2;
+
+        while (ss2.good()) {
+        string substr;
+        getline(ss2, substr, ',');
+        v2.push_back(substr);
+        };
+        
+        Airport temp;
+        try
+{
+                    temp.setLon(stod(v2[6]));
+                temp.setLat(stod(v2[7]));
+                string str = v2[4];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setIATA(str);
+                str = v2[2];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setCity(str);
+                str = v2[1];
+                str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
+                temp.setName(str);   
+                ans[stoi(v2[0])] = temp;
+}
+catch (const std::invalid_argument&)
+{
      string substr; 
         getline(ss, substr, ',');
         v.push_back(substr);
@@ -138,17 +240,12 @@ catch (const std::invalid_argument&)
             v.push_back(substr);
         }
 
-        // for (int j = 0; j < v.size(); j++) {
-        //         cout << j << " " << v[j] << " ";
-        //     }
-        //     cout << endl;
-        
+        for (int i = 0; i < v.size(); i++) {
+            cout << v[i] << endl;
+        }  
 
-        // cout << "done1" << endl;
                 temp.setLon(stod(v[7]));
-                // cout << "lon set" << endl;
                 temp.setLat(stod(v[8]));
-                // cout << "lat set" << endl;
                 string str = v[5];
                 str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
                 temp.setIATA(str);
@@ -158,9 +255,7 @@ catch (const std::invalid_argument&)
                 str = v[1];
                 str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
                 temp.setName(str); 
-                ans[stoi(v[0])] = temp; 
-              //  cout<<v[0]<<endl;
-        
+                ans[stoi(v[0])] = temp;         
             
 }
 catch (const std::out_of_range&)
@@ -168,68 +263,11 @@ catch (const std::out_of_range&)
     std::cerr << "Could not convert string to double, value falls out of range" << std::endl;
 }
 
-    //     if (isdigit(stod(v2[6].c_str())) && isdigit(stod(v2[7].c_str())) ) {  
-
-    //         cout << "done2" << endl;
-            
-
-    //         // for (int j = 0; j < v2.size(); j++) {
-    //         //     cout << v2[j] << " ";
-    //         // }
-    //         // cout << endl;
-
-    //             temp.setLon(stod(v2[6]));
-    //             temp.setLat(stod(v2[7]));
-    //             string str = v2[4];
-    //             str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
-    //             temp.setIATA(str);
-    //             str = v2[2];
-    //             str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
-    //             temp.setCity(str);
-    //             str = v2[1];
-    //             str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
-    //             temp.setName(str);   
-    //             ans[stoi(v2[0])] = temp;
-
-            
-    //     } else {
-
-    //     string substr; 
-    //     getline(ss, substr, ',');
-    //     v.push_back(substr);
-    //     getline(ss, substr, '\"');
-    //     getline(ss, substr, '\"');
-    //     v.push_back(substr);
-    //     getline(ss, substr, '\"');
-    //     getline(ss, substr, '\"');
-    //     v.push_back(substr);
-    //      while (ss.good()) {
-    //         string substr;
-    //         getline(ss, substr, ',');
-    //         v.push_back(substr);
-    //     }
-        
-    //     cout << "done1" << endl;
-    //             temp.setLon(stod(v[7]));
-    //             temp.setLat(stod(v[8]));
-    //             string str = v[4];
-    //             str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
-    //             temp.setIATA(str);
-    //             str = v[2];
-    //             str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
-    //             temp.setCity(str);
-    //             str = v[1];
-    //             str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
-    //             temp.setName(str); 
-    //             ans[stoi(v[0])] = temp; 
-        
-            
-    //     }
-    //     //ans.push_back(temp); 
     }
-    // cout << ans.size() << endl;
     return ans;
 }
+
+
 
 std::vector<int> Routes::GetSourceNumbers() {return src_id_vect_;}
 
