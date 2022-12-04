@@ -12,8 +12,8 @@ class Graph {
     Graph(string routesFile, string airportsFile);
     void addEdge(int source_number, int destination_number, long double distance);
     void addAllEdges();
-    vector <pair<int, long double> > adj;
     void printGraph(int V);
+    std::vector<std::string> BFS(int source_number);
 
     private:
     Routes routes_;

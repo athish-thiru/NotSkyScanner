@@ -14,6 +14,7 @@ TEST_CASE("BFS Test Case 1", "[BFS]") {
     Graph test_graph = Graph("../data/testAirports.dat", "../data/testRoutes.dat");
     test_graph.addAllEdges();
     vector<string> temp = test_graph.BFS(100);
+    std::vector<std::string> expected = {"Arya Airport", "Athish Airport", "Mount Hagen Kagamuga Airport", "Nadzab Airport"};
 
-    REQUIRE(temp == <"Arya Airport", "Athish Airport", "Mount Hagen Kagamuga Airport", "Nadzab Airport">);
+    REQUIRE(temp == expected);
 }

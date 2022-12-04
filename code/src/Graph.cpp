@@ -33,6 +33,13 @@ Graph::Graph(string routesFile, string airportsFile) {
     adjList_ = adjList;
 }
 
+/*
+Adds a single edge to the Adjacency List representation of the Graph
+source_number is the OpenFlights ID for the Source Airport
+destination_number is the OpenFlights ID for the Destination Airport
+distance is the calculated distance between them
+Note that the function only add an edge from source number to destination number since the graph is directed
+*/
 void Graph::addEdge(int source_number, int destination_number, long double distance) {
     bool exist = false;
     for (int i = 0; i < adjList_[source_number].size(); i++) {
@@ -43,6 +50,9 @@ void Graph::addEdge(int source_number, int destination_number, long double dista
     if (!exist) adjList_[source_number].push_back(make_pair(destination_number, distance));
 }
 
+/*
+Adds all edges from the Route class that has been initialized to the Adjacency List
+*/
 void Graph::addAllEdges(){
     for(int i = 0; i< routes_.GetDestinationNumbers().size(); i++){
         int source_number = routes_.GetSourceNumbers()[i]; //gives the index of the source airport as in the airport vector (i is the index per line)
@@ -50,11 +60,19 @@ void Graph::addAllEdges(){
         long double distance = routes_.GetDistances()[i]; //distance between the airports (i is index per line)
         addEdge(source_number, dest_number, distance);
     }
-    std::cout << "LIST SIZE: " << adjList_.size() << std::endl;
 }
 
+/*
+The function prints a visual representation of the graph for a given node
+source_number is the OpenFlights ID for the Source Airport
+The function prints to standard out all the Airports connected to the input airport along with their distance
+*/
 void Graph::printGraph(int source_number) {
-    cout << "Source airport " << routes_.GetAirports()[source_number].getName() << " is connected to \n";
+    if (adjList_[source_number].size() == 0) { // Checks if the provided source number is a given airport
+        std::cout << "Airport does not exist" << std::endl;
+        return;
+    }
+    cout << "Source Airport " << routes_.GetAirports()[source_number].getName() << " is connected to \n";
     for (auto it = adjList_[source_number].begin(); it!=adjList_[source_number].end(); it++)
     {
         int v = it->first;
@@ -62,6 +80,36 @@ void Graph::printGraph(int source_number) {
         cout << "\tDestination " << routes_.GetAirports()[v].getName() << " with distance: " << w << "\n";
     }
     cout << "\n";
-    std::cout << "SIZE: " << adjList_[source_number].size() << std::endl;
+    std::cout << "NUMBER OF EDGES: " << adjList_[source_number].size() << std::endl;
 }
 
+/* 
+The function implements a BFS traversal through the graph with the airport at the given source number Airport
+source_number is the OpenFlights ID for the Source Airport
+Returns a vector of Airports Names which highlighted the path traversed in a breath first manner
+*/
+std::vector<std::string> Graph::BFS(int source_number) {
+    if (adjList_[source_number].size() == 0) { // Checks if the provided source number is a given airport
+        std::cout << "Airport does not exist" << std::endl;
+        return {};
+    }
+    std::queue<int> queue;
+    std::vector<bool> visited(adjList_.size(), false);
+    queue.push(source_number);
+    visited[source_number] = true;
+    std::vector<std::string> path;
+
+    while (!queue.empty()) {
+        int source_airport = queue.front();
+        path.push_back(routes_.GetAirports()[source_airport].getName());
+        queue.pop();
+        std::vector<std::pair<int, long double>> neighbours = adjList_[source_airport];
+        for (std::pair<int, long double>& neighbour: neighbours) {
+            if (!visited[neighbour.first]) {
+                queue.push(neighbour.first);
+                visited[neighbour.first] = true;
+            }
+        }
+    }
+    return path;
+}
