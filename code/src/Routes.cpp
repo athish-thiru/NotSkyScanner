@@ -12,7 +12,7 @@
 using namespace std;
 
 Routes::Routes() {
-    airports_ = setVector("../data/routes.dat");
+    airports_ = setVector("../data/aiports.dat");
     std::ifstream routesdata("../data/routes.dat");
     std::vector<int> src_id;
     std::vector<int> dest_id;
