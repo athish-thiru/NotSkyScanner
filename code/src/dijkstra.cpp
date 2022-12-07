@@ -1,4 +1,5 @@
 /*source: https://leetcode.com/problems/path-with-maximum-probability/solutions/732293/Dijkstra's-algorithm-implementation-C++/ */
+//works with independent graph in online ide, need to adapt to our graph, algorithm seems sufficient and simpler than others
 #include "dijkstra.h"
 #include <bits/stdc++.h>
 
