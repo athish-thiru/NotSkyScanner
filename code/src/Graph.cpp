@@ -113,3 +113,39 @@ std::vector<std::string> Graph::BFS(int source_number) {
     }
     return path;
 }
+
+
+
+void Graph::Dijkstra(int src) {
+        // graph: each pair<int, int> is <node, weight>
+        int n = adjList_.size();
+        vector<int> dist(n, INT_MAX);
+        dist[src] = 0;
+        set<pair<int, int>> unfinalized;  // <distance, node>
+        for (int node = 0; node < n; node++)
+            unfinalized.insert({node == src ? 0 : INT_MAX, node});
+
+        while (!unfinalized.empty()) {
+            pair<int, int> p = *(unfinalized.begin());
+            unfinalized.erase(unfinalized.begin());
+            int u = p.second;
+
+            for (int i = 0; i < adjList_[u].size(); i++) {
+                int v = adjList_[u][i].first, dist_vect_ = adjList_[u][i].second;
+                if (dist[u] + dist_vect_ < dist[v]) {
+                    // v cannot be finalized, so must be in finalized
+                    unfinalized.erase(unfinalized.find({dist[v], v}));
+                    dist[v] = dist[u] + dist_vect_;
+                    unfinalized.insert({dist[v], v});
+                }
+            }
+        }
+
+        printSolution(dist);
+    }
+
+    void Graph::printSolution(vector<int>& dist) {
+        printf("Vertex \t\t Distance from Source\n");
+        for (int i = 0; i < dist.size(); i++)
+            printf("%d \t\t %d\n", i, dist[i]);
+    }
