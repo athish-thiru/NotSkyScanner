@@ -22,7 +22,7 @@ void printSolution(vector<int>& dist) {
         printf("%d \t\t %d\n", i, dist[i]);
 }
 
-void setList(vector<vector<pair<int, int>>>& graph, int src) {
+void setList(vector<vector<pair<int, long double>>>& graph, int src) {
         // graph: each pair<int, int> is <node, weight>
         int n = adjList_.size();
         vector<int> dist(n, INT_MAX);
