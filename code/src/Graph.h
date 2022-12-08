@@ -14,6 +14,8 @@ class Graph {
     void addAllEdges();
     void printGraph(int V);
     std::vector<std::string> BFS(int source_number);
+    void Dijkstra(int src);
+    void printSolution(vector<int>& dist);
 
     private:
     Routes routes_;
