@@ -1,18 +1,15 @@
 //#include "airport_graph.h"
 #include "Routes.h"
 #include <cmath> 
-#include <vector>
-#include <string>
-#include <unordered_map>
-#include <iostream>
 #include <sstream>
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
 #include <fstream>
 
 using namespace std;
 
 Routes::Routes() {
-    airports_ = setVector("../data/aiports.dat");
+    airports_ = setVector("../data/airports.dat");
     std::ifstream routesdata("../data/routes.dat");
     std::vector<int> src_id;
     std::vector<int> dest_id;
@@ -160,10 +157,6 @@ catch (const std::invalid_argument&)
             getline(ss, substr, ',');
             v.push_back(substr);
         }
-
-        for (int i = 0; i < v.size(); i++) {
-            cout << v[i] << endl;
-        }  
 
                 temp.setLon(stod(v[7]));
                 temp.setLat(stod(v[8]));

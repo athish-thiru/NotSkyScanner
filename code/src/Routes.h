@@ -1,7 +1,5 @@
 //routes.h
 #pragma once
-#include <string>
-#include <vector>
 #include "airport.h"
 //vector: source. openflights identifier
 //vector: destination, open flights idenitifer

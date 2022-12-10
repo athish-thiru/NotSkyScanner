@@ -1,12 +1,5 @@
 #include <catch2/catch_test_macros.hpp> 
-#include <iostream>
-#include "../code/src/airport.h"
 #include "../code/src/graph.h"
-#include "../code/src/routes.h"
-#include <sstream>
-#include <fstream>
-#include <string>
-#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -19,7 +12,7 @@ TEST_CASE("BFS Test Case 1", "[BFS]") {
     REQUIRE(temp == expected);
 }
 
-TEST_CASE("BFS Test Case 2", "[BFS]") {
+TEST_CASE("BFS Test Case 2 Terminal Vertex", "[BFS]") {
     Graph test_graph = Graph("../data/testAirports.dat", "../data/testRoutes.dat");
     test_graph.addAllEdges();
     vector<string> temp = test_graph.BFS(3500);
@@ -28,7 +21,7 @@ TEST_CASE("BFS Test Case 2", "[BFS]") {
     REQUIRE(temp == expected);
 }
 
-TEST_CASE("BFS Test Case 3", "[BFS]") {
+TEST_CASE("BFS Test Case 3 Non Existent Airport", "[BFS]") {
     Graph test_graph = Graph("../data/testAirports.dat", "../data/testRoutes.dat");
     test_graph.addAllEdges();
     vector<string> temp = test_graph.BFS(45);
@@ -37,7 +30,7 @@ TEST_CASE("BFS Test Case 3", "[BFS]") {
     REQUIRE(temp == expected);
 }
 
-TEST_CASE("BFS Test Case 4", "[BFS]") {
+TEST_CASE("BFS Test Case 4 Not Connected Vertex", "[BFS]") {
     Graph test_graph = Graph("../data/testAirports.dat", "../data/testRoutes.dat");
     test_graph.addAllEdges();
     vector<string> temp = test_graph.BFS(42);

@@ -1,12 +1,5 @@
 #include <catch2/catch_test_macros.hpp> 
-#include <iostream>
-#include "../code/src/airport.h"
 #include "../code/src/graph.h"
-#include "../code/src/routes.h"
-#include <sstream>
-#include <fstream>
-#include <string>
-#include <bits/stdc++.h>
 
 using namespace std;
 

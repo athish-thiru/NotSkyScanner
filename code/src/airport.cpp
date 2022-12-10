@@ -1,5 +1,4 @@
 #include "airport.h"
-#include "vector"
 #include <iostream>
 
 using namespace std;

@@ -2,15 +2,8 @@
 
 #include "Routes.h"
 #include "Graph.h"
-#include <math.h> 
-#include <float.h>
-#include <vector>
-#include <string>
-#include <unordered_map>
+#include <queue>
 #include <iostream>
-#include <sstream>
-#include <fstream>
-#include <bits/stdc++.h>
 
 
 using namespace std;
@@ -90,9 +83,13 @@ source_number is the OpenFlights ID for the Source Airport
 Returns a vector of Airports Names which highlighted the path traversed in a breath first manner
 */
 std::vector<std::string> Graph::BFS(int source_number) {
-    if (adjList_[source_number].size() == 0) { // Checks if the provided source number is a given airport
-        std::cout << "Airport does not exist" << std::endl;
+    // Checks if the provided source number is a real airport in the dataset
+    if (routes_.GetAirports()[source_number].getName() == "UNKNOWN") {
         return {};
+    }
+    // Checks if the provided source number is connected to other airports
+    if (adjList_[source_number].size() == 0) {
+        return {routes_.GetAirports()[source_number].getName()};
     }
     std::queue<int> queue;
     std::vector<bool> visited(adjList_.size(), false);
@@ -118,7 +115,7 @@ std::vector<std::string> Graph::BFS(int source_number) {
 
 
 //error it is deleting something that is already there
-
+/*
 void Graph::Dijkstra(int src, int destination) { //change the graph 
 
         auto comp = [](const pair<int, int>& p1, const pair<int, int>& p2) {
@@ -158,3 +155,4 @@ void Graph::Dijkstra(int src, int destination) { //change the graph
         //}
         
     }
+*/
