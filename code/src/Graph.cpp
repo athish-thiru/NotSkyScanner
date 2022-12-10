@@ -3,6 +3,7 @@
 #include "Routes.h"
 #include "Graph.h"
 #include <math.h> 
+#include <float.h>
 #include <vector>
 #include <string>
 #include <unordered_map>
@@ -114,38 +115,55 @@ std::vector<std::string> Graph::BFS(int source_number) {
     return path;
 }
 
+/*source: https://leetcode.com/problems/path-with-maximum-probability/solutions/732293/Dijkstra's-algorithm-implementation-C++/ */
+// vector<vector<pair<int, int>>> buildGraph(int n, vector<vector<int>>& edges, vector<int>& weights) {
+//     vector<vector<pair<int, int>>> graph(n);
+//     for (int i = 0; i < edges.size(); i++) {
+//         vector<int> edge = edges[i];
+//         graph[edge[0]].push_back({edge[1], weights[i]});
+//         graph[edge[1]].push_back({edge[0], weights[i]});
+//     }
+//     return graph;
+// }
 
+//error it is deleting something that is already there
 
-void Graph::Dijkstra(int src) {
-        // graph: each pair<int, int> is <node, weight>
+void Graph::Dijkstra(int src, int destination) { //change the graph 
+
+        auto comp = [](const pair<int, int>& p1, const pair<int, int>& p2) {
+            return p1.first > p2.first; // <distance, node>
+        };
+        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(comp)> unfinalized(comp);
         int n = adjList_.size();
         vector<int> dist(n, INT_MAX);
+        vector<int> destination_vector(n, 0);
         dist[src] = 0;
-        set<pair<int, int>> unfinalized;  // <distance, node>
-        for (int node = 0; node < n; node++)
-            unfinalized.insert({node == src ? 0 : INT_MAX, node});
+        unfinalized.push({0, src});
 
         while (!unfinalized.empty()) {
-            pair<int, int> p = *(unfinalized.begin());
-            unfinalized.erase(unfinalized.begin());
-            int u = p.second;
+            int u = unfinalized.top().second;
+            unfinalized.pop();
 
             for (int i = 0; i < adjList_[u].size(); i++) {
-                int v = adjList_[u][i].first, dist_vect_ = adjList_[u][i].second;
-                if (dist[u] + dist_vect_ < dist[v]) {
-                    // v cannot be finalized, so must be in finalized
-                    unfinalized.erase(unfinalized.find({dist[v], v}));
-                    dist[v] = dist[u] + dist_vect_;
-                    unfinalized.insert({dist[v], v});
+                int v = adjList_[u][i].first, weight = adjList_[u][i].second;
+                if (dist[u] + weight < dist[v]) {
+                    dist[v] = dist[u] + weight;
+                    unfinalized.push({dist[v], v});
+                    //destination_vector[v] = u;
                 }
             }
         }
 
-        printSolution(dist);
+        printSolution(dist, destination,destination_vector);
     }
 
-    void Graph::printSolution(vector<int>& dist) {
-        printf("Vertex \t\t Distance from Source\n");
-        for (int i = 0; i < dist.size(); i++)
-            printf("%d \t\t %d\n", i, dist[i]);
+    void Graph::printSolution(vector<int>& dist, int destination,vector<int> &destination_vector) {
+        printf("Vertex \t\t Distance from Source\n"); 
+        printf("%d \t\t %d\n", destination, dist[destination]);
+        // for(unsigned i = 0; i<destination_vector.size(); i++){
+        //     if(destination_vector[i] != 0){
+        //         printf("%d\n",destination_vector[i]);
+            //}
+        //}
+        
     }
