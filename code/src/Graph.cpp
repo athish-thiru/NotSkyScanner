@@ -1,14 +1,8 @@
 //Graphs Class
-
-#include "Routes.h"
 #include "Graph.h"
-#include <math.h> 
-#include <float.h>
 #include <vector>
 #include <string>
-#include <unordered_map>
 #include <iostream>
-#include <sstream>
 #include <fstream>
 #include <bits/stdc++.h>
 
@@ -16,16 +10,11 @@
 using namespace std;
 
 
-//construct the vertices 
-//such that each airport object is connected with its ID
-Graph::Graph() {
-    Routes routes = Routes();
-    routes_ = routes;
-    std::vector<std::pair<int, long double>> row = {};
-    std::vector<std::vector<std::pair<int, long double>>> adjList(routes.GetAirports().size(), row);
-    adjList_ = adjList;
-}
-
+/*
+Parameterized Graph Constructor
+airportsFile is the input file which contains all the airports
+routesFile is the input file which contains all the airport routes
+*/
 Graph::Graph(string routesFile, string airportsFile) {
     Routes routes = Routes(routesFile, airportsFile);
     routes_ = routes;
@@ -90,9 +79,12 @@ source_number is the OpenFlights ID for the Source Airport
 Returns a vector of Airports Names which highlighted the path traversed in a breath first manner
 */
 std::vector<std::string> Graph::BFS(int source_number) {
-    if (adjList_[source_number].size() == 0) { // Checks if the provided source number is a given airport
-        std::cout << "Airport does not exist" << std::endl;
+    // Checks if the provided source number is a given airport
+    if (routes_.GetAirports()[source_number].getName() == "UNKNOWN") {
         return {};
+    }
+    if (adjList_[source_number].size() == 0) {
+        return {routes_.GetAirports()[source_number].getName()};
     }
     std::queue<int> queue;
     std::vector<bool> visited(adjList_.size(), false);
@@ -117,8 +109,12 @@ std::vector<std::string> Graph::BFS(int source_number) {
 
 
 
-//error it is deleting something that is already there
-
+/* 
+The function finds the shortest path between a source airport and destination airport
+It does so using the Dijkstra's algorithm
+src is the OpenFlights ID for the Source Airport
+destination is the OpenFlights ID for the Destination Airport
+*/
 void Graph::Dijkstra(int src, int destination) { //change the graph 
     //two nodes as input, computes their distance, and returns true if one is greater than the other.
     auto comp = [](const pair<int, int>& p1, const pair<int, int>& p2) { 
@@ -149,13 +145,13 @@ void Graph::Dijkstra(int src, int destination) { //change the graph
     }
 
     printSolution(dist, destination,destination_vector);
-    }
+}
 
-    void Graph::printSolution(vector<int>& dist, int destination,vector<int> &destination_vector) {
-        if(dist[destination] == INT_MAX){
-            printf("THERE IS NO ROUTE\n");
-        }
-        else{
+void Graph::printSolution(vector<int>& dist, int destination,vector<int> &destination_vector) {
+    if(dist[destination] == INT_MAX){
+        printf("THERE IS NO ROUTE\n");
+    }
+    else{
         printf("Vertex \t\t Distance from Source\n"); 
         printf("%d \t\t %d\n", destination, dist[destination]);
         for(unsigned i = 0; i<destination_vector.size(); i++){
@@ -163,6 +159,24 @@ void Graph::Dijkstra(int src, int destination) { //change the graph
                 printf("%d\n",destination_vector[i]);
             }
         }
-        }
-        
     }
+    
+}
+
+/*
+Converts a vector into a csv file format
+input is the vector of strings
+filename is the name of the outputted file
+*/
+void Graph::writeToFile(std::vector<std::string> input, std::string filename) {
+    std::ofstream outputFile(filename);
+
+    for (size_t j = 0; j < input.size(); j++) {
+        if (j == input.size() - 1) {
+            outputFile << input[j] << std::endl;
+        } else {
+            outputFile << input[j] << ",";
+        }
+    }
+    outputFile.close();
+}

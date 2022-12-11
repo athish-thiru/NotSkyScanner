@@ -8,6 +8,9 @@
 
 using namespace std;
 
+/*
+Default Routes Constructor
+*/
 Routes::Routes() {
     airports_ = setVector("../data/airports.dat");
     std::ifstream routesdata("../data/routes.dat");
@@ -42,6 +45,11 @@ Routes::Routes() {
     dist_vect_ = dist_vect;
 }
 
+/*
+Parametrized Routes Constructor
+airportsFile is the input file which contains all the airports
+routesFile is the input file which contains all the airport routes
+*/
 Routes::Routes(string airportsFile,string routesFile) {
     airports_ = setVector(airportsFile);
     std::ifstream routesdata(routesFile);
@@ -76,12 +84,18 @@ Routes::Routes(string airportsFile,string routesFile) {
     dist_vect_ = dist_vect;
 }
 
+/*
+Calculates the distance travelled along the circumference along the earth
+source_number is the OpenFlights ID for the Source Airport
+dest_number is the OpenFlights ID for the Destination Airport
+*/
 double Routes::distance(int source_number, int dest_number){
     long double source_lat = airports_[source_number].getLat();
     long double source_long = airports_[source_number].getLon();
     long double dest_lat = airports_[dest_number].getLat();
     long double dest_long = airports_[dest_number].getLon();
 
+    // converting the angles stored in degres into radians
     source_lat *= (3.14/180);
     source_long *= (3.14/180);
     dest_lat *= (3.14/180);
@@ -105,6 +119,11 @@ double Routes::distance(int source_number, int dest_number){
     return distance;
 }
 
+/*
+Reads a csv file and converts its content into a vector of airports
+The vector of airports is essentially a node list
+input is the name of the inputfile
+*/
 vector<Airport> Routes::setVector(string input) {
     std::ifstream airportdata(input);
     string line;
@@ -182,11 +201,14 @@ catch (const std::out_of_range&)
 }
 
 
-
+// Getter for the Source ID vector
 std::vector<int> Routes::GetSourceNumbers() {return src_id_vect_;}
 
+// Getter for the Destination ID vector
 std::vector<int> Routes::GetDestinationNumbers() {return dest_id_vect_;}
 
+// Getter for the Distance vector
 std::vector<long double> Routes::GetDistances() {return dist_vect_;}
 
+// Getter for the Airports vector
 std::vector<Airport> Routes::GetAirports() {return airports_;}

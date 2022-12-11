@@ -1,11 +1,11 @@
 #include <catch2/catch_test_macros.hpp> 
-#include "../code/src/graph.h"
+#include "../code/src/Graph.h"
 
 using namespace std;
 
 
 TEST_CASE("Parsing First Element", "[Edge Case 1]") {
-    Routes test_routes;
+    Routes test_routes("../data/airports.dat", "../data/routes.dat");
     vector<Airport> test = test_routes.GetAirports();
 
     REQUIRE(test[1].getName() == "Goroka Airport");
@@ -16,7 +16,7 @@ TEST_CASE("Parsing First Element", "[Edge Case 1]") {
 }
 
 TEST_CASE("Parsing Last Element", "[Edge Case 2]") {
-    Routes test_routes;
+    Routes test_routes("../data/airports.dat", "../data/routes.dat");
     vector<Airport> test = test_routes.GetAirports();
 
     REQUIRE(test[14110].getName() == "Melitopol Air Base");
@@ -28,7 +28,7 @@ TEST_CASE("Parsing Last Element", "[Edge Case 2]") {
 }
 
 TEST_CASE("Parsing Random", "[Middle Case 1]") {
-    Routes test_routes;
+    Routes test_routes("../data/airports.dat", "../data/routes.dat");
     vector<Airport> test = test_routes.GetAirports();
 
     REQUIRE(test[641].getName() == "Harstad/Narvik Airport, Evenes");
@@ -42,7 +42,7 @@ TEST_CASE("Parsing Random", "[Middle Case 1]") {
 TEST_CASE("Parsing Random", "[Middle Case 2]") {
     // Graph test_graph;
     // vector<Airport> test = test_graph.setVector();
-    Routes test_routes;
+    Routes test_routes("../data/airports.dat", "../data/routes.dat");
     vector<Airport> test = test_routes.GetAirports();
 
     REQUIRE(test[2997].getName() == "Chhatrapati Shivaji International Airport");
@@ -61,7 +61,7 @@ TEST_CASE("Skips /N values", "[Routes = 1]") {
     vector<double> ans_distance;
     vector<double> test_distance; 
 
-    Routes routes;
+    Routes routes("../data/airports.dat", "../data/routes.dat");
 
     vector<int> test_source_id = {2965,2966,2966,2968,2968,4029,4029,4029,6156,6156};
     vector<int> test_destination_id = {2990,2990,2962,2990,4078,2990,6969,6160,2952,2990};
@@ -88,7 +88,7 @@ TEST_CASE("Skips /N values", "[Routes = 1]") {
 
 TEST_CASE("No extra values in any vector/ all the data has been parsed", "[Routes = 2]") {
 
-    Routes routes;
+    Routes routes("../data/airports.dat", "../data/routes.dat");
     //std::cout << routes.GetSourceNumbers().size() <<endl;
 
     REQUIRE(routes.GetSourceNumbers().size() == routes.GetDestinationNumbers().size());

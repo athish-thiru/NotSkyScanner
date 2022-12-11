@@ -1,10 +1,6 @@
 //routes.h
 #pragma once
 #include "airport.h"
-//vector: source. openflights identifier
-//vector: destination, open flights idenitifer
-//indexed by line they are on
-//will create distances vector
 
 using namespace std; 
 class Routes {
@@ -14,11 +10,9 @@ class Routes {
     std::vector<long double> dist_vect_;
     std::vector<Airport> airports_;
 
-    
-
     public:
     Routes();
-    Routes(string routesFile, string aiportsFile);
+    Routes(string airportsFile, string routesFile);
     vector<Airport> setVector();
     vector<Airport> setVector(string input);
     double distance(int source_number, int dest_number);
