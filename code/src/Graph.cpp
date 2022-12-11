@@ -118,51 +118,60 @@ std::vector<std::string> Graph::BFS(int source_number) {
 
 
 //error it is deleting something that is already there
-
-void Graph::Dijkstra(int src, int destination) { //change the graph 
-    //two nodes as input, computes their distance, and returns true if one is greater than the other.
-    auto comp = [](const pair<int, int>& p1, const pair<int, int>& p2) { 
-        return p1.first > p2.first; 
-    };
-    // note that we are using decltype(comp) because we want to use auto-dispatching for our comparison
-    priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(comp)> unfinalized(comp);
-    int n = adjList_.size();
-    vector<int> dist(n, INT_MAX);
-    vector<int> destination_vector(n, 0);
-    dist[src] = 0;
-    unfinalized.push({0, src});
-
-    while (!unfinalized.empty()) {
-        int u = unfinalized.top().second;
-        unfinalized.pop();//we iterate through all the nodes and then pop
-        //  When the distance of a vertex is reduced, we insert a new copy to the
-        //  priority_queue. Only the instance with min distance is considered, 
-        //  while others are ignored.
-        for (int i = 0; i < adjList_[u].size(); i++) {
-            int v = adjList_[u][i].first, weight = adjList_[u][i].second;
-            if (dist[u] + weight < dist[v]) {
-                dist[v] = dist[u] + weight;
-                unfinalized.push({dist[v], v});
-                destination_vector[v] = u;
-            }
-        }
-    }
-
-    printSolution(dist, destination,destination_vector);
-    }
-
-    void Graph::printSolution(vector<int>& dist, int destination,vector<int> &destination_vector) {
-        if(dist[destination] == INT_MAX){
-            printf("THERE IS NO ROUTE\n");
-        }
-        else{
-        printf("Vertex \t\t Distance from Source\n"); 
-        printf("%d \t\t %d\n", destination, dist[destination]);
-        for(unsigned i = 0; i<destination_vector.size(); i++){
-            if(destination_vector[i] != 0){
-                printf("%d\n",destination_vector[i]);
-            }
-        }
+vector< pair<int, int> > Graph::DijkstraSP(int start,int destination)
+    {
+    cout << "\nGetting the shortest path from " << start << " to all other nodes.\n";
+    vector<pair<int, int> > dist; // First int is dist, second is the previous node. 
+    
+    int n = adjList_.size();// Initialize all source->vertex as infinite.
+    for(int i = 0; i < n; i++)
+        {
+        dist.push_back(make_pair(1000000007, i)); // Define "infinity" as necessary by constraints.
         }
         
+    priority_queue<pair<int, int>, vector< pair<int, int> >, greater<pair<int, int> > > priorityQ;// Create a Priority Q.
+    
+    priorityQ.push(make_pair(start, 0));
+    dist[start] = make_pair(0, start);;
+    
+    while(priorityQ.empty() == false)// While priorityQ isn't empty
+        {
+        int u = priorityQ.top().first;// Get min distance vertex from priorityQ which is u
+        priorityQ.pop();
+        
+        
+        for(int i = 0; i < adjList_[u].size(); i++)// Visit all of u's neighbours
+            {
+            int v = adjList_[u][i].first;
+            int weight = adjList_[u][i].second;
+            
+            // If the distance to v is shorter by going through u...
+            if(dist[v].first > dist[u].first + weight)
+                {
+                // Update the distance of v.
+                dist[v].first = dist[u].first + weight;
+                // Update the previous node of v.
+                dist[v].second = u;
+                priorityQ.push(make_pair(v, dist[v].first));// Insert v into the priorityQ. 
+                }
+            }
+        }
+    PrintShortestPath(dist,start,destination);
+    return dist;
+    }
+    
+void Graph::PrintShortestPath(vector< pair<int, int> > dist, int start,int destination)
+    {
+    cout << "\nPrinting the shortest paths for node " << start << ".\n";
+
+        cout << "The distance from node " << start << " to node " << destination << " is: " << dist[destination].first << endl;
+        
+        int currnode = destination;
+        cout << "The path is: " << currnode;
+        while(currnode != start)
+            {
+            currnode = dist[currnode].second;
+            cout << " <- " << currnode;
+            }
+        cout << endl << endl;
     }
