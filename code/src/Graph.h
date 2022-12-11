@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+#include <vector>
 #include "Routes.h"
 #include "airport.h"
 
@@ -12,8 +14,8 @@ class Graph {
     void addAllEdges();
     void printGraph(int V);
     std::vector<std::string> BFS(int source_number);
-    void Dijkstra(int src);
-    void printSolution(vector<int>& dist);
+    void Dijkstra(int src, int destination);
+    void printSolution(vector<int>& dist, int destination,vector<int> &destination_vector);
 
     private:
     Routes routes_;
