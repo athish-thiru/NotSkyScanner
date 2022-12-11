@@ -8,41 +8,12 @@
 
 using namespace std;
 
-Routes::Routes() {
-    airports_ = setVector("../data/airports.dat");
-    std::ifstream routesdata("../data/routes.dat");
-    std::vector<int> src_id;
-    std::vector<int> dest_id;
-    std::vector<long double> dist_vect;
-    std::string line; 
-    while (std::getline(routesdata, line))
-    {
-        // Line contains string of length > 0 then save it in vector
-        if(line.size() > 0){
-            stringstream ss(line);
-            vector<string> v;
-            while(ss.good()) {
-            string substr;
-            getline(ss, substr, ',');
-            v.push_back(substr);
-        }
-        //if \N exists instead of source number or destination number skip that line
-        if ((v[3] == "\\N") || (v[5] == "\\N")) continue;
-        int source_number = std::stoi(v[3]);
-        int dest_number = std::stoi(v[5]);
-        src_id.push_back(source_number);
-        dest_id.push_back(dest_number);
-        double dist = distance(source_number, dest_number);
-        //std::cout << source_number << " " << dest_number << " " << dist << std::endl;
-        dist_vect.push_back(dist);
-        }
-    }
-    src_id_vect_ = src_id;
-    dest_id_vect_ = dest_id;
-    dist_vect_ = dist_vect;
-}
-
-Routes::Routes(string airportsFile,string routesFile) {
+/*
+Parametrized Routes Constructor
+airportsFile is the input file which contains all the airports
+routesFile is the input file which contains all the airport routes
+*/
+Routes::Routes(string airportsFile, string routesFile) {
     airports_ = setVector(airportsFile);
     std::ifstream routesdata(routesFile);
     std::vector<int> src_id;
@@ -76,12 +47,18 @@ Routes::Routes(string airportsFile,string routesFile) {
     dist_vect_ = dist_vect;
 }
 
+/*
+Calculates the distance travelled along the circumference along the earth
+source_number is the OpenFlights ID for the Source Airport
+dest_number is the OpenFlights ID for the Destination Airport
+*/
 double Routes::distance(int source_number, int dest_number){
     long double source_lat = airports_[source_number].getLat();
     long double source_long = airports_[source_number].getLon();
     long double dest_lat = airports_[dest_number].getLat();
     long double dest_long = airports_[dest_number].getLon();
 
+    // converting the angles stored in degres into radians
     source_lat *= (3.14/180);
     source_long *= (3.14/180);
     dest_lat *= (3.14/180);
@@ -105,6 +82,11 @@ double Routes::distance(int source_number, int dest_number){
     return distance;
 }
 
+/*
+Reads a csv file and converts its content into a vector of airports
+The vector of airports is essentially a node list
+input is the name of the inputfile
+*/
 vector<Airport> Routes::setVector(string input) {
     std::ifstream airportdata(input);
     string line;

@@ -8,26 +8,31 @@
 #include <string>
 #include <unordered_map>
 #include <iostream>
-#include <sstream>
 #include <fstream>
-#include <bits/stdc++.h>
+#include <queue>
 
 
 using namespace std;
 
 
-//construct the vertices 
-//such that each airport object is connected with its ID
-Graph::Graph() {
-    Routes routes = Routes();
+/*
+Parameterized Graph Constructor
+airportsFile is the input file which contains all the airports
+routesFile is the input file which contains all the airport routes
+*/
+Graph::Graph(string airportsFile, string routesFile) {
+    Routes routes = Routes(airportsFile, routesFile);
     routes_ = routes;
     std::vector<std::pair<int, long double>> row = {};
     std::vector<std::vector<std::pair<int, long double>>> adjList(routes.GetAirports().size(), row);
     adjList_ = adjList;
 }
 
-Graph::Graph(string routesFile, string airportsFile) {
-    Routes routes = Routes(routesFile, airportsFile);
+/*
+Parameterized Graph Constructor
+routes is an instance of the route class
+*/
+Graph::Graph(Routes routes) {
     routes_ = routes;
     std::vector<std::pair<int, long double>> row = {};
     std::vector<std::vector<std::pair<int, long double>>> adjList(routes.GetAirports().size(), row);
@@ -115,8 +120,6 @@ std::vector<std::string> Graph::BFS(int source_number) {
     return path;
 }
 
-
-
 //error it is deleting something that is already there
 
 void Graph::Dijkstra(int src, int destination) { //change the graph 
@@ -166,3 +169,24 @@ void Graph::Dijkstra(int src, int destination) { //change the graph
         }
         
     }
+
+/*
+Converts a 2D vector into a csv file format
+input is the 2D vector of strings
+filename is the name of the outputted file
+*/
+void Graph::writeToFile(std::vector<std::vector<std::string>> input, std::string filename) {
+    std::ofstream outputFile(filename);
+
+    for (size_t i = 0; i < input.size(); i++) {
+        outputFile << i << " ";
+        for (size_t j = 0; j < input[i].size(); j++) {
+            if (j == input[i].size() - 1) {
+                outputFile << input[i][j] << std::endl;
+            } else {
+                outputFile << input[i][j] << ",";
+            }
+        }
+    }
+    outputFile.close();
+}

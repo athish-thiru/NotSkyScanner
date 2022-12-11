@@ -1,10 +1,7 @@
 #include <iostream>
-#include "../src/airport.h"
-#include "../src/graph.h"
-#include <sstream>
-#include <fstream>
-#include <string>
+#include "../src/Graph.h"
 #include <bits/stdc++.h>
+#include <iostream>
 
 using namespace std;
 
@@ -12,17 +9,17 @@ vector<Airport> setVector();
 
 int main() {
     
-    std::cout << "Main is working" << std::endl;
+  std::cout << "Main is working" << std::endl;
     
-    Graph test_graph;
+    Graph test_graph("../data/airports.dat", "../data/routes.dat");
     test_graph.addAllEdges();
     test_graph.printGraph(2912);
     test_graph.Dijkstra(2966,2990);
 
 
 
-    Routes routes;
-    Graph testgraph;
+    Routes routes("../data/airports.dat", "../data/routes.dat");
+    Graph testgraph(routes);
 
 //test to see value stored correctly in vertex of graph
     testgraph.addEdge(routes.GetSourceNumbers()[0],routes.GetDestinationNumbers()[0],routes.GetDistances()[0]);
@@ -42,5 +39,5 @@ testgraph.addEdge(routes.GetSourceNumbers()[7],routes.GetDestinationNumbers()[7]
       testgraph.printGraph(routes.GetSourceNumbers()[12]);
 
 
-    return 0;
+  return 0;
 } 

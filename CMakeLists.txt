@@ -17,6 +17,10 @@ add_subdirectory(./code/src)
 add_executable(main code/entry/main.cpp)
 target_link_libraries(main PRIVATE src)
 
+#executable for BFS
+add_executable(bfs code/entry/graph_bfs.cpp)
+target_link_libraries(bfs PRIVATE src)
+
 #Collects all the source files in tests into variable tests_src
 #configure_depends updates make whenever files are modified
 file(GLOB_RECURSE tests_src CONFIGURE_DEPENDS tests/*.cpp)
