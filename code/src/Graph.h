@@ -10,10 +10,10 @@ class Graph {
     void addAllEdges();
     void printGraph(int V);
     std::vector<std::string> BFS(int source_number);
-    void Dijkstra(int src, int destination);
-    void printSolution(vector<int>& dist, int destination,vector<int> &destination_vector);
+    vector< pair<int, int> > DijkstraSP(int start,int destination);
+    void PrintShortestPath(vector< pair<int, int> > dist, int start,int destination);
     void writeToFile(std::vector<std::string> input, std::string filename);
-
+    
     private:
     Routes routes_;
     std::vector<std::vector<std::pair<int, long double>>> adjList_;
