@@ -18,10 +18,7 @@ int main() {
     std::cout << "Enter Filename: ";
     std::cin >> filename;
 
-    time_t dijkstra_start = std::time(NULL);
     std::vector<std::pair<int, int>> outputVector = test_graph.DijkstraSP(source_number, dest_number);
-    time_t dijkstra_stop = std::time(NULL);
-    std::cout << "Took " << dijkstra_stop - dijkstra_start << " seconds to run BFS" << std::endl;
 
     std::vector<std::string> pathVector;
     for (size_t i = 0; i < outputVector.size(); i++) {
