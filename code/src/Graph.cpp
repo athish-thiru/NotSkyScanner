@@ -2,8 +2,15 @@
 
 #include "Routes.h"
 #include "Graph.h"
-#include <queue>
+#include <math.h> 
+#include <float.h>
+#include <vector>
+#include <string>
+#include <unordered_map>
 #include <iostream>
+#include <sstream>
+#include <fstream>
+#include <bits/stdc++.h>
 
 
 using namespace std;
@@ -83,13 +90,9 @@ source_number is the OpenFlights ID for the Source Airport
 Returns a vector of Airports Names which highlighted the path traversed in a breath first manner
 */
 std::vector<std::string> Graph::BFS(int source_number) {
-    // Checks if the provided source number is a real airport in the dataset
-    if (routes_.GetAirports()[source_number].getName() == "UNKNOWN") {
+    if (adjList_[source_number].size() == 0) { // Checks if the provided source number is a given airport
+        std::cout << "Airport does not exist" << std::endl;
         return {};
-    }
-    // Checks if the provided source number is connected to other airports
-    if (adjList_[source_number].size() == 0) {
-        return {routes_.GetAirports()[source_number].getName()};
     }
     std::queue<int> queue;
     std::vector<bool> visited(adjList_.size(), false);
@@ -115,44 +118,51 @@ std::vector<std::string> Graph::BFS(int source_number) {
 
 
 //error it is deleting something that is already there
-/*
+
 void Graph::Dijkstra(int src, int destination) { //change the graph 
+    //two nodes as input, computes their distance, and returns true if one is greater than the other.
+    auto comp = [](const pair<int, int>& p1, const pair<int, int>& p2) { 
+        return p1.first > p2.first; 
+    };
+    // note that we are using decltype(comp) because we want to use auto-dispatching for our comparison
+    priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(comp)> unfinalized(comp);
+    int n = adjList_.size();
+    vector<int> dist(n, INT_MAX);
+    vector<int> destination_vector(n, 0);
+    dist[src] = 0;
+    unfinalized.push({0, src});
 
-        auto comp = [](const pair<int, int>& p1, const pair<int, int>& p2) {
-            return p1.first > p2.first; // <distance, node>
-        };
-        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(comp)> unfinalized(comp);
-        int n = adjList_.size();
-        vector<int> dist(n, INT_MAX);
-        vector<int> destination_vector(n, 0);
-        dist[src] = 0;
-        unfinalized.push({0, src});
-
-        while (!unfinalized.empty()) {
-            int u = unfinalized.top().second;
-            unfinalized.pop();
-
-            for (int i = 0; i < adjList_[u].size(); i++) {
-                int v = adjList_[u][i].first, weight = adjList_[u][i].second;
-                if (dist[u] + weight < dist[v]) {
-                    dist[v] = dist[u] + weight;
-                    unfinalized.push({dist[v], v});
-                    //destination_vector[v] = u;
-                }
+    while (!unfinalized.empty()) {
+        int u = unfinalized.top().second;
+        unfinalized.pop();//we iterate through all the nodes and then pop
+        //  When the distance of a vertex is reduced, we insert a new copy to the
+        //  priority_queue. Only the instance with min distance is considered, 
+        //  while others are ignored.
+        for (int i = 0; i < adjList_[u].size(); i++) {
+            int v = adjList_[u][i].first, weight = adjList_[u][i].second;
+            if (dist[u] + weight < dist[v]) {
+                dist[v] = dist[u] + weight;
+                unfinalized.push({dist[v], v});
+                destination_vector[v] = u;
             }
         }
+    }
 
-        printSolution(dist, destination,destination_vector);
+    printSolution(dist, destination,destination_vector);
     }
 
     void Graph::printSolution(vector<int>& dist, int destination,vector<int> &destination_vector) {
+        if(dist[destination] == INT_MAX){
+            printf("THERE IS NO ROUTE\n");
+        }
+        else{
         printf("Vertex \t\t Distance from Source\n"); 
         printf("%d \t\t %d\n", destination, dist[destination]);
-        // for(unsigned i = 0; i<destination_vector.size(); i++){
-        //     if(destination_vector[i] != 0){
-        //         printf("%d\n",destination_vector[i]);
-            //}
-        //}
+        for(unsigned i = 0; i<destination_vector.size(); i++){
+            if(destination_vector[i] != 0){
+                printf("%d\n",destination_vector[i]);
+            }
+        }
+        }
         
     }
-*/
