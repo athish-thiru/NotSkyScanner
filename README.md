@@ -11,7 +11,7 @@ This project analyses the OpenFlights dataset by construcing a graph representat
 * The outputs for the executable can be found in the `output/` folder.
 
 ## Executable
-We have written the project in a manner such that each algorithm or traversal runs seperately and outputs are written to a specified file name in the `outputs/` folder. Follow the instructions specified below.
+We have written the project in a manner such that each algorithm or traversal runs seperately and outputs are written to a specified file name in the `output/` folder. Follow the instructions specified below.
 
 1. With the root directory as you location create a build folder run `mkdir build`.
 
@@ -32,6 +32,22 @@ We have written the project in a manner such that each algorithm or traversal ru
     2. Specify the OpenFlights ID for the staring airport, the OpenFlights ID for the destination airport and then a file name to write the path traversed to like `Dijkstraoutput.txt`. The OpenFlights ID is once again a number from `1` to `14110`.
 
     3. Sometimes the inputted numbers does not correspond to real airports in the dataset. In this case the program will tell you as such and ask you to try again.
+
+## Output
+The `output/` folder already has the output to each one of the executable described above to give you an idea of what the output should like. These files are `BFSoutputFile.txt` and `DijkstraoutputFile.txt`.
+
+## Tests
+We have also written tests which are written in the `tests` folder. You can execute the entire testcase by running `./test` after you compile the project. You can also execute the testcases associated with each indivdiual part of the program with the following keywords after `./test`:
+
+* `[BC]` for Betweenness Centrality.
+
+* `[Dijkstra]` for Dijkstra's Algorithm.
+
+* `[BFS]` for Breath First Search.
+
+* `[Parsing]` to test the Data Parsing. (to be added)
+
+* `[Graph]` to test the Graph Representation. (to be added)
 
 ## Team
 Athish Thiruvengadam (athisht2)
