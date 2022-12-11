@@ -11,7 +11,7 @@ int main() {
     Graph test_graph("../data/airports.dat", "../data/routes.dat");
     test_graph.addAllEdges();
     test_graph.printGraph(2912);
-    test_graph.Dijkstra(2966,2990);
+    test_graph.DijkstraSP(2966,2990);
 
 
 

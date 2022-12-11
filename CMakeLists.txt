@@ -21,6 +21,10 @@ target_link_libraries(main PRIVATE src)
 add_executable(bfs code/entry/graph_bfs.cpp)
 target_link_libraries(bfs PRIVATE src)
 
+#executable for Dijkstra
+add_executable(dijkstra code/entry/dijkstra.cpp)
+target_link_libraries(dijkstra PRIVATE src)
+
 #Collects all the source files in tests into variable tests_src
 #configure_depends updates make whenever files are modified
 file(GLOB_RECURSE tests_src CONFIGURE_DEPENDS tests/*.cpp)

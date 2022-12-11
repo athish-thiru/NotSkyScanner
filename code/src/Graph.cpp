@@ -94,6 +94,10 @@ std::vector<std::string> Graph::BFS(int source_number) {
 
     while (!queue.empty()) {
         int source_airport = queue.front();
+        if (routes_.GetAirports()[source_airport].getName() == "UNKNOWN") {
+            queue.pop();
+            continue;
+        }
         path.push_back(routes_.GetAirports()[source_airport].getName());
         queue.pop();
         std::vector<std::pair<int, long double>> neighbours = adjList_[source_airport];
@@ -108,8 +112,12 @@ std::vector<std::string> Graph::BFS(int source_number) {
 }
 
 
-
-//error it is deleting something that is already there
+/* 
+The function finds the shortest path between a source airport and destination airport
+It does so using the Dijkstra's algorithm
+src is the OpenFlights ID for the Source Airport
+destination is the OpenFlights ID for the Destination Airport
+*/
 vector< pair<int, int> > Graph::DijkstraSP(int start,int destination)
     {
     cout << "\nGetting the shortest path from " << start << " to all other nodes.\n";
@@ -168,7 +176,6 @@ void Graph::PrintShortestPath(vector< pair<int, int> > dist, int start,int desti
         cout << endl << endl;
     }
     
-}
 
 /*
 Converts a vector into a csv file format
