@@ -17,6 +17,7 @@ int main() {
     Graph test_graph;
     test_graph.addAllEdges();
     test_graph.printGraph(2912);
+    test_graph.Dijkstra(2966,2990);
 
 
 
