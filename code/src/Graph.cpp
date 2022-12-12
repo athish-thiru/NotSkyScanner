@@ -4,6 +4,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <utility>
+#include <algorithm>
+
 #include <bits/stdc++.h>
 
 
@@ -179,6 +182,60 @@ void Graph::PrintShortestPath(vector< pair<int, int> > dist, int start,int desti
         cout << endl << endl;
         }
     }
+
+
+
+/* Betweenness centrality implementation */
+vector <int>Graph::betweennessCentrality(/*what should be taken as argument to return the bc value?*/ ) {
+
+vector <int> count (Airport.size());  //vector to hold frequency of shortest paths passing through each airport
+std:: fill (count.begin(), count.end(), 0);  //initialise count for all airports to 0
+std::vector<std::pair<int, int>> output; 
+
+//running Dijkstra's algorithm on every pair of nodes in the graph
+for (int i = 0; i < adjList_.size(); i++) {
+  for (int j = 0; j < adjList_[i].size(); j++) {
+    pair<int, int> edge = adjList_[i][j];
+    int start_ = edge.first;
+    int dest_ = edge.second;
+    // run Dijkstra's algorithm with start node and destination node as arguments
+    output = Dijkstra(start_, dest_);
+  }
+}
+
+//increment count whenever a node is incremented
+for (int i = 0; i< output.size(); i++)
+{
+       for (int j = 0; j< output[i].size();j++)
+          {
+  	    count[i]++;
+   	  }
+}
+
+
+  // Print the counts
+  for (int i = 0; i < count.size(); i++) {
+    cout << "Node " << i << " appears " << count[i] << " times" << endl;
+  }
+
+int number_elem = adjList_.size();
+int number_pairs = number_elem * (number_elem - 1)/2;
+    
+vector <int> bc_node (Airport.size()); 
+std:: fill (bc_node.begin(), bc_node.end(), 0);
+    for (int i = 0; i < count.size(); i++){
+ bc_node[i] = count[i]/number_pairs;
+}
+
+  // Print the betweenness centrality of each node
+  for (int i = 0; i < bc_node.size(); i++) {
+    cout << "Node " << i << " appears " << bc_node[i] << " times" << endl;
+  }
+
+return bc_node;
+
+}
+
     
 
 /*
@@ -198,3 +255,7 @@ void Graph::writeToFile(std::vector<std::string> input, std::string filename) {
     }
     outputFile.close();
 }
+
+
+
+
