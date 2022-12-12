@@ -118,7 +118,7 @@ It does so using the Dijkstra's algorithm
 src is the OpenFlights ID for the Source Airport
 destination is the OpenFlights ID for the Destination Airport
 */
-vector< pair<int, int> > Graph::DijkstraSP(int start,int destination)
+vector< pair<int, int> > Graph::Dijkstra(int start,int destination)
     {
     cout << "\nGetting the shortest path from " << start << " to all other nodes.\n";
     vector<pair<int, int> > dist; // First int is dist, second is the previous node. 
