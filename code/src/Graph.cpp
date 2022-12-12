@@ -162,18 +162,22 @@ vector< pair<int, int> > Graph::DijkstraSP(int start,int destination)
     
 void Graph::PrintShortestPath(vector< pair<int, int> > dist, int start,int destination)
     {
-    cout << "\nPrinting the shortest paths for node " << start << ".\n";
-
+        if(dist[destination].first == 1000000007){
+            cout<<"Oops it looks like there is no path"<< endl;
+        }
+        else{
         cout << "The distance from node " << start << " to node " << destination << " is: " << dist[destination].first << endl;
         
         int currnode = destination;
         cout << "The path is: " << currnode;
+        int count;
         while(currnode != start)
             {
             currnode = dist[currnode].second;
             cout << " <- " << currnode;
             }
         cout << endl << endl;
+        }
     }
     
 
