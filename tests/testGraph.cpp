@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TEST_CASE("data for airport 1 correctly stored in graph"){
+TEST_CASE("data for airport 1 correctly stored in graph", "[Graph]"){
   
     int V = 10;
     vector<pair<int, int> > adj[V];
@@ -16,7 +16,7 @@ TEST_CASE("data for airport 1 correctly stored in graph"){
 
 }
 
-TEST_CASE("index containing \\N skipped when storing airport 7"){
+TEST_CASE("index containing \\N skipped when storing airport 7", "[Graph]"){
   
     int V = 10;
     vector<pair<int, int> > adj[V];
@@ -29,7 +29,7 @@ TEST_CASE("index containing \\N skipped when storing airport 7"){
 
 }
 
-TEST_CASE("graph with size>1 constructed"){
+TEST_CASE("graph with size>1 constructed", "[Graph]"){
   
     int V = 10;
     vector<pair<int, int> > adj[V];

@@ -4,7 +4,7 @@
 using namespace std;
 
 
-TEST_CASE("Parsing First Element", "[Edge Case 1]") {
+TEST_CASE("Parsing First Element", "[Edge Case 1][Parsing]") {
     Routes test_routes("../data/airports.dat", "../data/routes.dat");
     vector<Airport> test = test_routes.GetAirports();
 
@@ -15,7 +15,7 @@ TEST_CASE("Parsing First Element", "[Edge Case 1]") {
     REQUIRE(test[1].getIATA() == "GKA");
 }
 
-TEST_CASE("Parsing Last Element", "[Edge Case 2]") {
+TEST_CASE("Parsing Last Element", "[Edge Case 2][Parsing]") {
     Routes test_routes("../data/airports.dat", "../data/routes.dat");
     vector<Airport> test = test_routes.GetAirports();
 
@@ -27,7 +27,7 @@ TEST_CASE("Parsing Last Element", "[Edge Case 2]") {
     REQUIRE(test[14110].getIATA() == "\\N");
 }
 
-TEST_CASE("Parsing Random", "[Middle Case 1]") {
+TEST_CASE("Parsing Random", "[Middle Case 1][Parsing]") {
     Routes test_routes("../data/airports.dat", "../data/routes.dat");
     vector<Airport> test = test_routes.GetAirports();
 
@@ -39,7 +39,7 @@ TEST_CASE("Parsing Random", "[Middle Case 1]") {
     REQUIRE(test[641].getIATA() == "EVE");
 }
 
-TEST_CASE("Parsing Random", "[Middle Case 2]") {
+TEST_CASE("Parsing Random", "[Middle Case 2][Parsing]") {
     // Graph test_graph;
     // vector<Airport> test = test_graph.setVector();
     Routes test_routes("../data/airports.dat", "../data/routes.dat");
@@ -54,7 +54,7 @@ TEST_CASE("Parsing Random", "[Middle Case 2]") {
 }
 
 
-TEST_CASE("Skips /N values", "[Routes = 1]") {
+TEST_CASE("Skips /N values", "[Routes = 1][Parsing]") {
 //test from 1 to 10 - this test must skip a /N value and all distances must be calculated 
     vector<int> ans_source_id;
     vector<int> ans_destination_id;
@@ -86,7 +86,7 @@ TEST_CASE("Skips /N values", "[Routes = 1]") {
     REQUIRE(test_distance == ans_distance);
 }
 
-TEST_CASE("No extra values in any vector/ all the data has been parsed", "[Routes = 2]") {
+TEST_CASE("No extra values in any vector/ all the data has been parsed", "[Routes = 2][Parsing]") {
 
     Routes routes("../data/airports.dat", "../data/routes.dat");
     //std::cout << routes.GetSourceNumbers().size() <<endl;
