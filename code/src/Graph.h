@@ -5,6 +5,7 @@ using namespace std;
 
 class Graph {
     public:
+    Graph();
     Graph(string routesFile, string airportsFile);
     void addEdge(int source_number, int destination_number, long double distance);
     void addAllEdges();
