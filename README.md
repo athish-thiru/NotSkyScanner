@@ -38,6 +38,7 @@ We have written the project in a manner such that each algorithm or traversal ru
     1. The executable which provides the interface for BFS is `./bc`.
 
     2. Specify a file name like `BCoutput.txt`. The program will calculate the Centrality Score for a subset of nodes in the graph and return the name of the Airport associated with the Highest Centrality Score.
+    Betweeness centrality is run on subgraphs due to time constraints, our function was run on the entire dataset and shows the correct betweenness scores.
 
 ## Output
 The `output/` directory already has the output to each one of the executable described above to give you an idea of what the output should like. These files are `BFSoutputFile.txt`, `DijkstraoutputFile.txt` and `BCoutputFile.txt`.
