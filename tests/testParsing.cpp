@@ -61,7 +61,7 @@ TEST_CASE("Skips /N values", "[Routes = 1][Parsing]") {
     vector<double> ans_distance;
     vector<double> test_distance; 
 
-    Routes routes("../data/airports.dat", "../data/routes.dat");
+    Routes routes;
 
     vector<int> test_source_id = {2965,2966,2966,2968,2968,4029,4029,4029,6156,6156};
     vector<int> test_destination_id = {2990,2990,2962,2990,4078,2990,6969,6160,2952,2990};
