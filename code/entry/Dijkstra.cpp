@@ -18,12 +18,13 @@ int main() {
     std::cout << "Enter Filename: ";
     std::cin >> filename;
 
-    std::vector<std::pair<int, int>> outputVector = test_graph.DijkstraSP(source_number, dest_number);
+    std::vector<std::pair<int, int>> outputVector = test_graph.Dijkstra(source_number, dest_number);
+
+    std::vector<int> secondOutput = test_graph.PrintShortestPath(outputVector, source_number, dest_number);
 
     std::vector<std::string> pathVector;
-    for (size_t i = 0; i < outputVector.size(); i++) {
-        int source_number = outputVector[i].second;
-        pathVector.push_back(routes.GetAirports()[i].getName());
+    for (size_t i = 0; i < secondOutput.size(); i++) {
+        pathVector.push_back(routes.GetAirports()[secondOutput[i]].getName());
     }
 
     test_graph.writeToFile(pathVector, "../output/" + filename);

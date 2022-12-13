@@ -22,8 +22,12 @@ add_executable(bfs code/entry/graph_bfs.cpp)
 target_link_libraries(bfs PRIVATE src)
 
 #executable for Dijkstra
-add_executable(dijkstra code/entry/dijkstra.cpp)
+add_executable(dijkstra code/entry/Dijkstra.cpp)
 target_link_libraries(dijkstra PRIVATE src)
+
+#executable for Betweenness Centrality
+add_executable(bc code/entry/BetweennessCentrality.cpp)
+target_link_libraries(bc PRIVATE src)
 
 #Collects all the source files in tests into variable tests_src
 #configure_depends updates make whenever files are modified

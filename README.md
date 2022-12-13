@@ -33,11 +33,17 @@ We have written the project in a manner such that each algorithm or traversal ru
 
     3. Sometimes the inputted numbers does not correspond to real airports in the dataset. In this case the program will tell you as such and ask you to try again.
 
+    ### Betweenness Centrality
+
+    1. The executable which provides the interface for BFS is `./bc`.
+
+    2. Specify a file name like `BCoutput.txt`. The program will calculate the Centrality Score for a subset of nodes in the graph and return the name of the Airport associated with the Highest Centrality Score.
+
 ## Output
-The `output/` folder already has the output to each one of the executable described above to give you an idea of what the output should like. These files are `BFSoutputFile.txt` and `DijkstraoutputFile.txt`.
+The `output/` directory already has the output to each one of the executable described above to give you an idea of what the output should like. These files are `BFSoutputFile.txt`, `DijkstraoutputFile.txt` and `BCoutputFile.txt`.
 
 ## Tests
-We have also written tests which are written in the `tests` folder. You can execute the entire testcase by running `./test` after you compile the project. You can also execute the testcases associated with each indivdiual part of the program with the following keywords after `./test`:
+We have also written tests which are written in the `tests/` directory. You can execute the entire testcase by running `./test` after you compile the project. You can also execute the testcases associated with each indivdiual part of the program with the following keywords after `./test`:
 
 * `[BC]` for Betweenness Centrality.
 
@@ -45,9 +51,9 @@ We have also written tests which are written in the `tests` folder. You can exec
 
 * `[BFS]` for Breath First Search.
 
-* `[Parsing]` to test the Data Parsing. (to be added)
+* `[Parsing]` to test the Data Parsing.
 
-* `[Graph]` to test the Graph Representation. (to be added)
+* `[Graph]` to test the Graph Representation.
 
 ## Team
 Athish Thiruvengadam (athisht2)

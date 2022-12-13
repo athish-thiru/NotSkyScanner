@@ -128,10 +128,13 @@ vector<Airport> Routes::setVector(string input) {
     std::ifstream airportdata(input);
     string line;
     
+    //creates a vector of unknown airports, since the OpenFlights ID is not continous from 1 to 14110
     vector<Airport> ans;
     for (int i = 0; i < 14111; i++) {
         ans.push_back(Airport());
     }
+    
+    //parses through the file line by line
     while (std::getline(airportdata, line)) {
         stringstream ss(line);
         stringstream ss2(line);
@@ -145,9 +148,15 @@ vector<Airport> Routes::setVector(string input) {
         };
         
         Airport temp;
+        
+        /*
+        first case: This is the general case for most lines, 
+        data is seperated on basis of ',' and then '"' are
+        cleaned out of the data
+        */
         try
 {
-                    temp.setLon(stod(v2[6]));
+                temp.setLon(stod(v2[6]));
                 temp.setLat(stod(v2[7]));
                 string str = v2[4];
                 str.erase(std::remove(str.begin(),str.end(),'\"'),str.end());
@@ -160,6 +169,11 @@ vector<Airport> Routes::setVector(string input) {
                 temp.setName(str);   
                 ans[stoi(v2[0])] = temp;
 }
+/*
+Case 2: Some airports have a ',' in their names
+(eg - "Harstad/Narvik Airport, Evenes")
+so we created a special parsing for that
+*/
 catch (const std::invalid_argument&)
 {
      string substr; 
@@ -191,11 +205,6 @@ catch (const std::invalid_argument&)
                 ans[stoi(v[0])] = temp;         
             
 }
-catch (const std::out_of_range&)
-{
-    std::cerr << "Could not convert string to double, value falls out of range" << std::endl;
-}
-
     }
     return ans;
 }

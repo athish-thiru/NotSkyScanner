@@ -4,6 +4,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <utility>
+#include <algorithm>
+
 #include <bits/stdc++.h>
 
 
@@ -21,6 +24,7 @@ Graph::Graph(string routesFile, string airportsFile) {
     std::vector<std::pair<int, long double>> row = {};
     std::vector<std::vector<std::pair<int, long double>>> adjList(routes.GetAirports().size(), row);
     adjList_ = adjList;
+    airports_ = routes_.GetAirports();
 }
 
 /*
@@ -67,7 +71,7 @@ void Graph::printGraph(int source_number) {
     {
         int v = it->first;
         long double w = it->second;
-        cout << "\tDestination " << routes_.GetAirports()[v].getName() << " with distance: " << w << "\n";
+        cout << "\tDestination " << airports_[v].getName() << " with distance: " << w << "\n";
     }
     cout << "\n";
     std::cout << "NUMBER OF EDGES: " << adjList_[source_number].size() << std::endl;
@@ -80,7 +84,7 @@ Returns a vector of Airports Names which highlighted the path traversed in a bre
 */
 std::vector<std::string> Graph::BFS(int source_number) {
     // Checks if the provided source number is a given airport
-    if (routes_.GetAirports()[source_number].getName() == "UNKNOWN") {
+    if (airports_[source_number].getName() == "UNKNOWN") {
         return {};
     }
     if (adjList_[source_number].size() == 0) {
@@ -94,11 +98,11 @@ std::vector<std::string> Graph::BFS(int source_number) {
 
     while (!queue.empty()) {
         int source_airport = queue.front();
-        if (routes_.GetAirports()[source_airport].getName() == "UNKNOWN") {
+        if (airports_[source_airport].getName() == "UNKNOWN") {
             queue.pop();
             continue;
         }
-        path.push_back(routes_.GetAirports()[source_airport].getName());
+        path.push_back(airports_[source_airport].getName());
         queue.pop();
         std::vector<std::pair<int, long double>> neighbours = adjList_[source_airport];
         for (std::pair<int, long double>& neighbour: neighbours) {
@@ -118,9 +122,7 @@ It does so using the Dijkstra's algorithm
 src is the OpenFlights ID for the Source Airport
 destination is the OpenFlights ID for the Destination Airport
 */
-vector< pair<int, int> > Graph::DijkstraSP(int start,int destination)
-    {
-    cout << "\nGetting the shortest path from " << start << " to all other nodes.\n";
+vector<pair<int, int>> Graph::Dijkstra(int start,int destination) {
     vector<pair<int, int> > dist; // First int is dist, second is the previous node. 
     
     int n = adjList_.size();// Initialize all source->vertex as infinite.
@@ -156,26 +158,74 @@ vector< pair<int, int> > Graph::DijkstraSP(int start,int destination)
                 }
             }
         }
-    PrintShortestPath(dist,start,destination);
     return dist;
     }
-    
-void Graph::PrintShortestPath(vector< pair<int, int> > dist, int start,int destination)
-    {
-    cout << "\nPrinting the shortest paths for node " << start << ".\n";
 
+/*
+Prints as well as returns the Shortest path taken between start and destination
+dist the output from Dijkstra
+start the OpenFlights ID for the source airport
+destination the OpenFlights ID for the destination airport
+*/
+std::vector<int> Graph::PrintShortestPath(vector< pair<int, int> > dist, int start,int destination) {
+    cout << "\nGetting the shortest path from " << start << " to all other nodes.\n";
+    std::vector<int> output;
+    if (dist[destination].first == 1000000007) {
+        cout<<"Oops it looks like there is no path"<< endl;
+    } else {
         cout << "The distance from node " << start << " to node " << destination << " is: " << dist[destination].first << endl;
         
         int currnode = destination;
         cout << "The path is: " << currnode;
-        while(currnode != start)
-            {
+        output.push_back(currnode);
+        int count;
+        while(currnode != start) {
             currnode = dist[currnode].second;
             cout << " <- " << currnode;
-            }
+            output.push_back(currnode);
+        }
         cout << endl << endl;
     }
+    return output;
+}
+
+
+
+/* 
+Finds the Betweenness score for the first size nodes.
+Implements Betweennees Centrality formula using Dijkstra's Algorithm
+size is the number of nodes the function is run on
+*/
+vector<float> Graph::betweennessCentrality(int size) {
+    vector<int> count(adjList_.size());  //vector to hold frequency of shortest paths passing through each airport
+    std::fill (count.begin(), count.end(), 0);  //initialise count for all airports to 0
+    std::vector<std::pair<int, int>> output; 
+
+    //running Dijkstra's algorithm on every pair of nodes in the graph
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < adjList_[i].size(); j++) {
+            pair<int, int> edge = adjList_[i][j];
+            //int start_ = edge.first;
+            int dest_ = edge.first;
+            // run Dijkstra's algorithm with start node and destination node as arguments
+            output = Dijkstra(i, dest_);
+        }
+    }
+    // increment count whenever a node is incremented
+    for (std::pair<int, int>& node: output) {
+        count[node.second]++;
+    }
+
+    int number_elem = size;
+    float number_pairs = number_elem * (number_elem - 1)/2;
     
+    vector<float> bc_node(airports_.size()); 
+    std::fill (bc_node.begin(), bc_node.end(), 0);
+    for (int i = 0; i < count.size(); i++) {
+        bc_node[i] = count[i]/number_pairs;
+    }
+    return bc_node;
+}
 
 /*
 Converts a vector into a csv file format
@@ -194,3 +244,23 @@ void Graph::writeToFile(std::vector<std::string> input, std::string filename) {
     }
     outputFile.close();
 }
+
+/*
+Converts a vector into a csv file format
+input is the vector of floats
+filename is the name of the outputted file
+*/
+void Graph::writeToFile(std::vector<float> input, std::string filename) {
+    std::ofstream outputFile(filename);
+
+    for (size_t j = 0; j < input.size(); j++) {
+        if (j == input.size() - 1) {
+            outputFile << input[j] << std::endl;
+        } else {
+            outputFile << input[j] << ",";
+        }
+    }
+    outputFile.close();
+}
+
+
