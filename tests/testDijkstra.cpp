@@ -4,7 +4,7 @@
 using namespace std;
 
 TEST_CASE("Dijkstra can find the airport shortest distance", "[Dijkstra]") {
-    Graph test_graph();
+    Graph test_graph;
     test_graph.addAllEdges();
     vector< pair<int, int> > dp = test_graph.Dijkstra(2965,2990);
     int ans = 1410;
@@ -14,7 +14,7 @@ TEST_CASE("Dijkstra can find the airport shortest distance", "[Dijkstra]") {
 }
 
 TEST_CASE("Dijkstra can find the airport shortest distance (path does not exist)", "[Dijkstra]") {
-    Graph test_graph();
+    Graph test_graph;
     test_graph.addAllEdges();
     vector< pair<int, int> > dp = test_graph.Dijkstra(0,3300);
     int ans = 1000000007;
@@ -24,7 +24,7 @@ TEST_CASE("Dijkstra can find the airport shortest distance (path does not exist)
 }
 
 TEST_CASE("Dijkstra can find the airport shortest distance (direct path)", "[Dijkstra]") {
-    Graph test_graph();
+    Graph test_graph;
     test_graph.addAllEdges();
     vector< pair<int, int> > dp = test_graph.Dijkstra(2965,2990);
     vector<int> ans = {2965};
@@ -40,7 +40,7 @@ TEST_CASE("Dijkstra can find the airport shortest distance (direct path)", "[Dij
 }
 
 TEST_CASE("Dijkstra can find the airport shortest distance (not direct path but one exists)", "[Dijkstra]") {
-    Graph test_graph();
+    Graph test_graph;
     test_graph.addAllEdges();
     vector< pair<int, int> > dp = test_graph.Dijkstra(3000,3300);
     vector<int> ans = {3408, 3273,3304,3131,3000};
@@ -56,7 +56,7 @@ TEST_CASE("Dijkstra can find the airport shortest distance (not direct path but 
 }
 
 TEST_CASE("Dijkstra can find the airport shortest distance (no path exists)", "[Dijkstra]") {
-    Graph test_graph();
+    Graph test_graph;
     test_graph.addAllEdges();
     vector< pair<int, int> > dp = test_graph.Dijkstra(0,3300);
     vector<int> ans = {3300,3300,3300,3300};
