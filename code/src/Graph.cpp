@@ -130,19 +130,16 @@ destination is the OpenFlights ID for the Destination Airport
 */
 vector<pair<int, int>> Graph::Dijkstra(int start,int destination) {
     vector<pair<int, int> > dist; // First int is dist, second is the previous node. 
-    
     int n = adjList_.size();// Initialize all source->vertex as infinite.
-    for(int i = 0; i < n; i++)
-        {
+    for(int i = 0; i < n; i++){
         dist.push_back(make_pair(1000000007, i)); // Define "infinity" as necessary by constraints.
         }
-        
     priority_queue<pair<int, int>, vector< pair<int, int> >, greater<pair<int, int> > > priorityQ;// Create a Priority Q.
     
     priorityQ.push(make_pair(start, 0));
     dist[start] = make_pair(0, start);;
     
-    while(priorityQ.empty() == false)// While priorityQ isn't empty
+    while(!priorityQ.empty())// While priorityQ isn't empty
         {
         int u = priorityQ.top().first;// Get min distance vertex from priorityQ which is u
         priorityQ.pop();
@@ -152,14 +149,10 @@ vector<pair<int, int>> Graph::Dijkstra(int start,int destination) {
             {
             int v = adjList_[u][i].first;
             int weight = adjList_[u][i].second;
-            
-            // If the distance to v is shorter by going through u...
-            if(dist[v].first > dist[u].first + weight)
-                {
-                // Update the distance of v.
-                dist[v].first = dist[u].first + weight;
-                // Update the previous node of v.
-                dist[v].second = u;
+            // If the distance to v is shorter by going through u
+            if(dist[v].first > dist[u].first + weight){
+                dist[v].first = dist[u].first + weight;// Update the distance of v.
+                dist[v].second = u;// Update the previous node of v.
                 priorityQ.push(make_pair(v, dist[v].first));// Insert v into the priorityQ. 
                 }
             }
