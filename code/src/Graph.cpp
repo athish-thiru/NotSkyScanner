@@ -12,7 +12,13 @@
 
 using namespace std;
 
-
+Graph::Graph() {
+    Routes routes = Routes();
+    routes_ = routes;
+    std::vector<std::pair<int, long double>> row = {};
+    std::vector<std::vector<std::pair<int, long double>>> adjList(routes.GetAirports().size(), row);
+    adjList_ = adjList;
+}
 /*
 Parameterized Graph Constructor
 airportsFile is the input file which contains all the airports
